@@ -21,7 +21,7 @@ body{
 nav{
   padding-top: 20px;
   padding-bottom: 20px;
-  position: fixed;
+  position:relative;
   z-index: 99;
   width: 100%;
   margin-top: 0;
@@ -312,7 +312,7 @@ nav input{
 
 footer{
   width: 100%;
-  position: fixed;
+  position: relative;
   bottom: 0;
   left: 0;
   display: block;

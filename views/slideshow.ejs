@@ -1,4 +1,7 @@
 <style>
+
+ .mycarousel{
+  }
   .carousel-item {
     height: 100vh;
     min-height: 300px;
@@ -6,6 +9,7 @@
     -webkit-background-size: cover;
     background-size: cover;
     overflow: hidden;
+    position: relative;
   }
   .carousel-item::before {
     content: "";
@@ -83,7 +87,7 @@
     }
   }
 </style>
-<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+<div id="carouselExampleCaptions" class="carousel slide mycarousel" data-bs-ride="carousel">
   <div class="carousel-indicators">
     <button
       type="button"
