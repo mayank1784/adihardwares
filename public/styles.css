@@ -7,18 +7,29 @@
   text-decoration: none;
 }
 body{
-  min-height: 100vh;
+  min-height: 100%;
   width: 100%;
+  background-image: url("https://www.transparenttextures.com/patterns/axiom-pattern.png");
 }
+/* header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+} */
 nav{
   padding-top: 20px;
   padding-bottom: 20px;
   position: fixed;
   z-index: 99;
   width: 100%;
+  margin-top: 0;
+  display: block;
   
-  background: #ffffff;
+  /* background: #ffffff; */
 }
+
 nav .wrapper{
   position: relative;
   max-width: 1300px;
@@ -35,6 +46,7 @@ nav .wrapper{
   font-size: 30px;
   font-weight: 600;
   text-decoration: none;
+  display: flex;
 }
 .wrapper .logo a img{
   vertical-align: middle;
@@ -44,6 +56,9 @@ nav .wrapper{
   padding: 5 10 5 5;
   margin-left: 10px;
   background: #ffffff;
+}
+.wrapper .logo a h3{
+  padding-left: 10px;
 }
 .wrapper .nav-links{
   display: inline-flex;
@@ -106,10 +121,13 @@ nav .wrapper{
   width: 100%;
   justify-content: space-between;
   box-shadow: 0 6px 10px #de2025;
+  flex-wrap: wrap;
 }
 .mega-box .content .row{
-  width: calc(25% - 30px);
+  width: calc(25% - 30px);;
   line-height: 45px;
+  margin-bottom: 15px;
+  border-top: 2px solid #de2025;
 }
 .content .row img{
   width: 100%;
@@ -123,7 +141,7 @@ nav .wrapper{
 }
 .content .row .mega-links{
   margin-left: -40px;
-  border-left: 1px solid #de2025;
+  border-left: 2px solid #de2025;
 }
 .row .mega-links li{
   padding: 0 20px;
@@ -253,7 +271,7 @@ nav .wrapper{
   .mega-box .content .row{
     width: 100%;
     margin-bottom: 15px;
-    border-top: 1px solid #de2025;
+    border-top: 2px solid #de2025;
   }
   .mega-box .content .row:nth-child(1),
   .mega-box .content .row:nth-child(2){
@@ -297,7 +315,10 @@ footer{
   position: fixed;
   bottom: 0;
   left: 0;
-  background: #f5f5f5;
+  display: block;
+  z-index: 1;
+  top: 300px;
+  /* background: #f5f5f5; */
 }
 .footer-line {
   position: absolute;
@@ -346,6 +367,9 @@ footer .footer-content .middle{
 footer .footer-content .middle a{
   line-height: 40px;
   text-decoration: solid;
+}
+footer .footer-content .middle a:hover{
+  text-decoration: underline #de2025;
 }
 footer .footer-content .right .address {
   margin-bottom: 20px;
@@ -446,3 +470,56 @@ footer a:hover{
     top: -3px;
   }
 }
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#25d366;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+  font-size:30px;
+	box-shadow: 2px 2px 3px #999;
+  z-index:100;
+}
+
+.my-float{
+	margin-top:16px;
+}
+/* main {
+  margin-top: 70px; 
+  margin-bottom: 80px;
+}
+
+.carousel-section {
+  margin-top: 70px; 
+  margin-bottom: 80px;
+  padding: 20px;
+}
+
+.carousel-inner {
+  height: 300px; 
+}
+
+.carousel-item img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 10%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 30px;
+  height: 30px;
+}
+
+@media (max-width: 576px) {
+  .carousel-inner {
+    height: 200px; 
+} */
