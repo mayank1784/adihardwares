@@ -3,13 +3,12 @@
  .mycarousel{
   }
   .carousel-item {
-    height: 100vh;
+    height: 75vh;
     min-height: 300px;
     background: no-repeat scroll center scroll;
     -webkit-background-size: cover;
     background-size: cover;
     overflow: hidden;
-    position: relative;
   }
   .carousel-item::before {
     content: "";
@@ -20,9 +19,9 @@
     bottom: 0;
     right: 0;
     background: #000;
-    opacity: 0.7;
+    opacity: 0.3;
   }
-  .carousel-caption {
+  /* .carousel-caption {
     bottom: 180px;
     padding-left: 80px;
     padding-right: 80px;
@@ -34,7 +33,7 @@
   .carousel-caption p {
     font-size: 18px;
     top: 2rem;
-  }
+  } */
   .slider-btn .btn {
     background-color: #e74c3c;
     columns: white;
@@ -86,6 +85,23 @@
       font-size: 14px; /* Adjust this value for smaller devices */
     }
   }
+  .carousel-item .text-bg {
+  position: absolute;
+  top: 50%;
+  left: 50px; /* Adjust the left value to control the starting position of the text */
+  transform: translateY(-50%);
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-opaque background color */
+  color: #ffffff;
+  width: 300px; /* Adjust the width of the text box as per your requirement */
+  opacity: 0;
+  transition: opacity 2s, left 2s;
+}
+
+.carousel-item.active .text-bg {
+  left: 50px; /* Adjust this value to control the position from which the text comes from */
+  opacity: 1;
+}
 </style>
 <div id="carouselExampleCaptions" class="carousel slide mycarousel" data-bs-ride="carousel">
   <div class="carousel-indicators">
@@ -113,15 +129,25 @@
   <div class="carousel-inner">
     <div class="carousel-item active">
       <img src="images/kitchen.jpeg" class="d-block w-100" alt="..." />
-      <div class="carousel-caption d-none d-md-block">
+      <!-- <div class="carousel-caption left-caption d-md-block">
         <h5>First slide label</h5>
         <p>Some representative placeholder content for the first slide.</p>
         <div class="slider-btn">
           <button class="btn btn-1">Our Services</button>
           <button class="btn btn-2">Get Services</button>
         </div>
-      </div>
-    </div>
+      </div> -->
+      <!-- <div class="carousel-caption d-none d-md-block"> -->
+        <div class="text-bg active">
+         
+          <h5>Telescopic Channel Series</h5>
+          <p><b>Glidox Telescopic Channel </b>are used as support structure for drawers, slide and racks for its easy closing and opening.</p>
+
+          
+           <a href="zinc-telescopic-channel-premium.html" data-ani-in="swinFadeInRight" data-ani-out="fadeOut" data-ani-delay="800" tabindex="0" class="swin-btn text-left text-white btn-transparent animated swinFadeInRight"><span>Explore more</span></a>
+          </div>
+        </div>
+    <!-- </div> -->
     <div class="carousel-item">
       <img src="images/work-2.jpg" class="d-block w-100" alt="..." />
       <div class="carousel-caption d-none d-md-block">
@@ -156,3 +182,23 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div>
+<!-- Add this script to handle the animation -->
+<script>
+  // Get all carousel items
+  const carouselItems = document.querySelectorAll(".carousel-item");
+
+  // Add an event listener to the carousel slide event
+  document
+    .getElementById("carouselExampleCaptions")
+    .addEventListener("slide.bs.carousel", function (event) {
+      // Remove the 'active' class from all carousel items
+      carouselItems.forEach((item) => {
+        item.querySelector(".text-bg").classList.remove("active");
+      });
+
+      // Add the 'active' class to the current active carousel item
+      const activeItem = event.relatedTarget;
+      activeItem.querySelector(".text-bg").classList.add("active");
+    });
+</script>
+
