@@ -1,0 +1,329 @@
+<style>
+  .card:hover {
+    box-shadow: 20px 20px 80px -44px #de2025;
+    transition: 0.5s ease-in-out;
+    cursor: pointer;
+  }
+  .custom-modal-content {
+    max-width: 800px; /* Adjust the maximum width as needed */
+    margin: 0 auto; /* Center the modal horizontally */
+  }
+
+  .custom-close-btn {
+    font-size: 2rem;
+    color: #af2220;
+    opacity: 0.7;
+    background-color: #fff; /* New background color */
+    border: none; /* Remove border */
+    outline: none; /* Remove outline on focus */
+    padding: 0; /* Remove default padding */
+    width: 30px; /* Adjust button width */
+    height: 30px; /* Adjust button height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* Circular shape */
+  }
+  .custom-close-btn:hover {
+    opacity: 1;
+  }
+  .card .img-container {
+    position: relative;
+    overflow: hidden;
+    height: 300px; /* Adjust this value as needed to set the desired height */
+  }
+
+  .card .img-container img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+
+  .card .img-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: inherit;
+    filter: blur(10px); /* Adjust the blur amount as needed */
+    z-index: -1;
+  }
+  /* Responsive styles */
+  /* @media (max-width: 576px) {
+      
+      .custom-modal-content {
+        max-width: 90%;
+      }
+    }
+    @media (max-width: 768px) {
+      
+      .custom-modal-content {
+        max-width: 80%;
+      }
+    }
+    @media (max-width: 992px) {
+     
+      .custom-modal-content {
+        max-width: 70%;
+      }
+    } */
+</style>
+<div class="container mt-5">
+  <h1 class="text-center font-weight-normal">Jquery product cards</h1>
+  <div class="container mt-4 d-flex mb-5">
+    <div class="row">
+      <div class="col-md-4 mt-5">
+        <div class="card">
+          <div class="img-container">
+            <img src="images/work-3.jpg" alt="" class="card-img-top w-100" />
+          </div>
+          <div class="card-body">
+            <h2 class="card-title">Sony</h2>
+            <div class="d-flex justify-content-between">
+              <p class="card-text">
+                sdjbdh dsjfbdhufbd fdhfhiufes fdsjhfgdhsf dhgdfh dshgs
+              </p>
+              <p class="card-text mr-4 text-success">$34</p>
+            </div>
+            <a
+              href="#"
+              class="card-link"
+              data-toggle="modal"
+              data-target="#modalId"
+              >More</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mt-5">
+        <div class="card">
+          <div class="img-container">
+            <img src="images/work-3.jpg" alt="" class="card-img-top w-100" />
+          </div>
+          <div class="card-body">
+            <h2 class="card-title">Sony</h2>
+            <div class="d-flex justify-content-between">
+              <p class="card-text">
+                sdjbdh dsjfbdhufbd fdhfhiufes fdsjhfgdhsf dhgdfh dshgs
+              </p>
+              <p class="card-text mr-4 text-success">$34</p>
+            </div>
+            <a
+              href="#"
+              class="card-link"
+              data-toggle="modal"
+              data-target="#modalId"
+              >More</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mt-5">
+        <div class="card">
+          <div class="img-container">
+            <img src="images/work-2.jpg" alt="" class="card-img-top w-100" />
+          </div>
+          <div class="card-body">
+            <h2 class="card-title">Sony</h2>
+            <div class="d-flex justify-content-between">
+              <p class="card-text">
+                sdjbdh dsjfbdhufbd fdhfhiufes fdsjhfgdhsf dhgdfh dshgs
+              </p>
+              <p class="card-text mr-4 text-success">$34</p>
+            </div>
+            <a
+              href="#"
+              class="card-link"
+              data-toggle="modal"
+              data-target="#modalId"
+              >More</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mt-5">
+        <div class="card">
+          <div class="img-container">
+            <img src="images/work-4.jpg" alt="" class="card-img-top w-100" />
+          </div>
+          <div class="card-body">
+            <h2 class="card-title">Sony</h2>
+            <div class="d-flex justify-content-between">
+              <p class="card-text">
+                sdjbdh dsjfbdhufbd fdhfhiufes fdsjhfgdhsf dhgdfh dshgs
+              </p>
+              <p class="card-text mr-4 text-success">$34</p>
+            </div>
+            <a
+              href="#"
+              class="card-link"
+              data-toggle="modal"
+              data-target="#modalId"
+              >More</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mt-5">
+        <div class="card">
+          <div class="img-container">
+            <img src="images/work-5.jpg" alt="" class="card-img-top w-100" />
+          </div>
+          <div class="card-body">
+            <h2 class="card-title">Sony</h2>
+            <div class="d-flex justify-content-between">
+              <p class="card-text">
+                sdjbdh dsjfbdhufbd fdhfhiufes fdsjhfgdhsf dhgdfh dshgs
+              </p>
+              <p class="card-text mr-4 text-success">$34</p>
+            </div>
+            <a
+              href="#"
+              class="card-link"
+              data-toggle="modal"
+              data-target="#modalId"
+              >More</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mt-5">
+        <div class="card">
+          <div class="img-container">
+            <img src="images/work-6.jpg" alt="" class="card-img-top w-100" />
+          </div>
+          <div class="card-body">
+            <h2 class="card-title">Sony</h2>
+            <div class="d-flex justify-content-between">
+              <p class="card-text">
+                sdjbdh dsjfbdhufbd fdhfhiufes fdsjhfgdhsf dhgdfh dshgs
+              </p>
+              <p class="card-text mr-4 text-success">$34</p>
+            </div>
+            <a
+              href="#"
+              class="card-link"
+              data-toggle="modal"
+              data-target="#modalId"
+              >More</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mt-5">
+        <div class="card">
+          <div class="img-container">
+            <img src="images/work-1.jpg" alt="" class="card-img-top w-100" />
+          </div>
+          <div class="card-body">
+            <h2 class="card-title">Sony</h2>
+            <div class="d-flex justify-content-between">
+              <p class="card-text">
+                sdjbdh dsjfbdhufbd fdhfhiufes fdsjhfgdhsf dhgdfh dshgs
+              </p>
+              <p class="card-text mr-4 text-success">$34</p>
+            </div>
+            <a
+              href="#"
+              class="card-link"
+              data-toggle="modal"
+              data-target="#modalId"
+              >More</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- modal code -->
+<div class="modal fade" id="modalId">
+  <div class="modal-dialog bg-success custom-modal-content">
+    <div class="modal-content">
+      <!-- style="transform: scaleX(1.4)"> -->
+      <div class="modal-header pb-2">
+        <h1 class="font-weight-light ml-4">Description</h1>
+        <button
+          type="button"
+          class="close custom-close-btn"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row mt-2 p-3">
+          <div class="col-md-6">
+            <img src="" alt="" width="100%" height="280px" class="rounded" />
+          </div>
+          <div class="col-md-6">
+            <h2 class="product_name"></h2>
+            <p class="product_desc" style="box-sizing: border-box">
+              dgsuagd asygsygdcs dsajdgsd djgsidgs dsadgsudg syudgsd awdgsd
+            </p>
+            <p>
+              Review: &nbsp;&nbsp;&nbsp;&nbsp;
+              <i class="fa fa-star text-warning ml-2"></i>
+              <i class="fa fa-star text-warning ml-2"></i>
+              <i class="fa fa-star text-warning ml-2"></i>
+              <i class="fa fa-star text-warning ml-2"></i>
+              <i class="fa fa-star ml-2"></i>
+            </p>
+            <h4 class="product_price"></h4>
+            <button class="btn btn-success mt-2" style="width: 150px">
+              Add to cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  // JavaScript code to handle the modal close event
+  document.addEventListener("DOMContentLoaded", function () {
+    var myModal = new bootstrap.Modal(document.getElementById("modalId"));
+
+    document.querySelectorAll(".card-link").forEach(function (link) {
+      link.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        // Extract data from the clicked card
+        var card = event.target.closest(".card");
+        var imageSrc = card.querySelector(".card-img-top").getAttribute("src");
+        var productName = card.querySelector(".card-title").textContent;
+        var productDesc = card.querySelector(".card-text").textContent;
+        var productPrice = card.querySelector(".text-success").textContent;
+
+        // Update modal content
+        var modalImg = document.querySelector(".modal-content .col-md-6 img");
+        var modalProductName = document.querySelector(
+          ".modal-content .product_name"
+        );
+        var modalProductDesc = document.querySelector(
+          ".modal-content .product_desc"
+        );
+        var modalProductPrice = document.querySelector(
+          ".modal-content .product_price"
+        );
+
+        modalImg.setAttribute("src", imageSrc);
+        modalProductName.textContent = productName;
+        modalProductDesc.textContent = productDesc;
+        modalProductPrice.textContent = productPrice;
+
+        myModal.show();
+      });
+    });
+
+    // Add event listener for the custom close button
+    document
+      .querySelector(".custom-close-btn")
+      .addEventListener("click", function () {
+        myModal.hide();
+      });
+  });
+</script>

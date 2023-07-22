@@ -14,10 +14,10 @@
       <div class="lower">
         <div class="topic">Contact us</div>
         <div class="phone">
-          <a href="#"><i class="fas fa-phone-volume"></i>+91 78388 98930</a>
+          <a href="tel:917838898930"><i class="fas fa-phone-volume"></i>+91 78388 98930</a>
         </div>
         <div class="email">
-          <a href="mailto:info@adihardwares.com">
+          <a href="mailto:info@adihardwares.com" target="_blank">
             <i class="fas fa-envelope"></i>info@adihardwares.com</a
           >
         </div>
@@ -46,15 +46,20 @@
         ></iframe>
       </div>
       <div class="media-icons">
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-youtube"></i></a>
-        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=100090357311362" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/adihardwares/" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="/"><i class="fab fa-twitter"></i></a>
+        <a href="/"><i class="fab fa-youtube"></i></a>
+        <a href="/"><i class="fab fa-linkedin-in"></i></a>
       </div>
     </div>
   </div>
   <div class="bottom">
-    <p>Copyright © 2023 <a href="#">Adi Hardwares</a> All rights reserved</p>
+    <p id="copyright">Copyright © <span id="year"></span><a href="/"> Adi Hardwares</a> All rights reserved</p>
   </div>
 </footer>
+<script>
+  // Get the current year
+  const currentYear = new Date().getFullYear();
+document.getElementById("year").innerHTML=currentYear;
+</script>
