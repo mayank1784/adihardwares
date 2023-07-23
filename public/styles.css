@@ -16,11 +16,10 @@ nav{
   padding-top: 20px;
   padding-bottom: 20px;
   position:relative;
-  z-index: 999;
+  z-index: 99;
   width: 100%;
   margin-top: 0;
-  display: block;
-  overflow: hidden;
+  /* display: block; */
   /* background: #ffffff; */
 }
 
@@ -249,6 +248,7 @@ nav .wrapper{
   }
   .mega-box{
     position: static;
+    /* position: absolute; */
     top: 65px;
     opacity: 1;
     visibility: visible;
@@ -453,38 +453,3 @@ footer a:hover{
 .my-float{
 	margin-top:16px;
 }
-/* main {
-  margin-top: 70px; 
-  margin-bottom: 80px;
-}
-
-.carousel-section {
-  margin-top: 70px; 
-  margin-bottom: 80px;
-  padding: 20px;
-}
-
-.carousel-inner {
-  height: 300px; 
-}
-
-.carousel-item img {
-  height: 100%;
-  object-fit: cover;
-}
-
-.carousel-control-prev,
-.carousel-control-next {
-  width: 10%;
-}
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  width: 30px;
-  height: 30px;
-}
-
-@media (max-width: 576px) {
-  .carousel-inner {
-    height: 200px; 
-} */
