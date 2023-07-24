@@ -1,36 +1,46 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 // Define schema for Image
 const imageSchema = new mongoose.Schema({
   imageUrl: {
     type: String,
-    required: true
+    required: true,
   },
-  caption: String
+  caption: {
+    type: String,
+    default: function () {
+      return this.parent().name; // Set default value to the parent subcategory/category name
+    },
+  },
+});
+
+// Define schema for Sub-Sub-Category
+const subSubcategorySchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  images: [imageSchema], // Use the imageSchema here
 });
 
 // Define schema for Subcategory
 const subcategorySchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
-  images: [imageSchema]
+  images: [imageSchema], // Use the imageSchema here
+  subSubcategories: [subSubcategorySchema], // Added subSubcategories array
 });
 
 // Define schema for Category
 const categorySchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
-  subcategories: [subcategorySchema]
+  subcategories: [subcategorySchema],
 });
 
-// Create models based on the schemas
-const Category = mongoose.model('Category', categorySchema);
-
 // Export the models
-module.exports = {
-  Category
-};
+module.exports = mongoose.model("Category",categorySchema);
