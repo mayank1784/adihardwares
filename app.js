@@ -32,8 +32,10 @@ app.use(express.static("public"));
 
 //Routes Imports
 const user = require("./routes/userRoute");
+const product = require("./routes/productRoute");
 
 app.use("/api/v1",user);
+app.use("/api/v1",product);
 
 app.get("/", function (req, res) {
   res.render("home", {

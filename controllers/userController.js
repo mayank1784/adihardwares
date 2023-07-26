@@ -6,19 +6,22 @@ const sendEmail = require("../utils/sendEmail");
 const crypto = require("node:crypto");
 const { send } = require("node:process");
 const { ImageUploadService } = require("node-upload-images");
-const service = new ImageUploadService('postimages.org');
 //Register a User
 
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
+  const service = new ImageUploadService("postimages.org");
   const imageBuffer = req.file.buffer;
-  let { imageLink } = await service.uploadFromBinary(imageBuffer, req.body.name);
+  let { directLink } = await service.uploadFromBinary(
+    imageBuffer,
+    req.body.name
+  );
   const { name, email, password } = req.body;
   // Create a new User object with the form data
   const newUser = new User({
     name,
     email,
     password,
-    image: imageLink, // Set the image URL to the uploaded image URL from postimages.org
+    image: directLink, // Set the image URL to the uploaded image URL from postimages.org
   });
 
   // Save the new user object to the database
@@ -47,6 +50,9 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
   sendToken(user, 200, res);
 });
 
+exports.getLoginForm = (req, res, next) => {
+  res.render("login");
+};
 //Logout User
 
 exports.logout = catchAsyncErrors(async (req, res, next) => {
@@ -151,9 +157,13 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
   };
   if (req.file) {
     // If a new image is uploaded, upload it to imgbox
+    const service = new ImageUploadService("postimages.org");
     const imageBuffer = req.file.buffer;
-    let { imageLink } = await service.uploadFromBinary(imageBuffer, req.body.name);
-    newUserData.image = imageLink; // Update the image field with the new image URL
+    let { directLink } = await service.uploadFromBinary(
+      imageBuffer,
+      req.body.name
+    );
+    newUserData.image = directLink; // Update the image field with the new image URL
   }
   const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
     new: true,

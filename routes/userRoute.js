@@ -12,6 +12,7 @@ const {
   getSingleUser,
   updateUserByAdmin,
   deleteUser,
+  getLoginForm
 } = require("../controllers/userController");
 const multer = require("multer");
 const { isAuthenticatedUser, authorizedRoles } = require("../middlewares/auth");
@@ -20,20 +21,22 @@ const router = express.Router();
 const upload = multer();
 
 router
-  .route("/admin/register")
+  .route("/admin/registerUser")
   .post(
-    upload.single("image"),
     isAuthenticatedUser,
     authorizedRoles("admin"),
+    upload.single("image"),
     registerUser
   );
-router.route("/login").post(loginUser);
+router.route("/login").post(loginUser).get(getLoginForm);
 router.route("/logout").get(logout);
 router.route("/password/forgot").post(forgotPassword);
 router.route("/users/resetPassword/:token").put(resetPassword);
 router.route("/me").get(isAuthenticatedUser, getUserDetails);
 router.route("/password/update").put(isAuthenticatedUser, updatePassword);
-router.route("/me/update").put(upload.single("image"),isAuthenticatedUser, updateProfile);
+router
+  .route("/me/update")
+  .put(upload.single("image"), isAuthenticatedUser, updateProfile);
 router
   .route("/admin/users")
   .get(isAuthenticatedUser, authorizedRoles("admin"), getAllUsers);
