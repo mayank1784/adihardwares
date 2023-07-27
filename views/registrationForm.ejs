@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register Employee | Adi Hardwares</title>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "poppins", sans-serif;
+      }
+      body {
+        background: url("https://www.codingnepalweb.com/demos/create-glassmorphism-login-form-html-css/hero-bg.jpg");
+        background-position: center;
+        background-size: cover;
+        min-height: 100vh;
+        min-width: 100%;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        height: fit-content;
+      }
+      .form-box {
+        position: relative;
+        width: 400px;
+        height: min-content;
+        border: 2px solid rgba(255, 255, 2550.5);
+        border-radius: 20px;
+        backdrop-filter: blur(15px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .form-box h2 {
+        color: #fff;
+        text-align: center;
+        font-size: 32px;
+        padding-top: 10px;
+      }
+      .form-box .input-box {
+        position: relative;
+        margin: 30px 0;
+        width: 310px;
+        border-radius: 2px solid #fff;
+      }
+      .form-box .input-box input {
+        width: 100%;
+        height: 45px;
+        background: transparent;
+        border: 3px solid #fff;
+        outline: none;
+        padding: 0 20px 0 5px;
+        color: #fff;
+        font-size: 16px;
+      }
+      i {
+        position: absolute;
+        color: #fff;
+        top: 13px;
+        right: 10px;
+      }
+      input::placeholder {
+        color: #fff;
+      }
+      .btn {
+        color: #fff;
+        background: blue;
+        width: 100%;
+        height: 50px;
+        border-radius: 5px;
+        outline: none;
+        border: none;
+        font-size: 17px;
+        cursor: pointer;
+        box-shadow: 3px 0 10px rgba(0, 0, 0, 0.5);
+        top: auto;
+        margin-bottom: 50px;
+        position: relative;
+      }
+      #result {
+        color: red;
+        font-weight: 600;
+        position: relative;
+        top: 25px;
+      }
+      .popup {
+        width: 400px;
+        background-color: #fff;
+        border-radius: 6px;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        transition: transform 0.4s, top 0.4s;
+        visibility: hidden;
+        text-align: center;
+        padding: 0 30px 30px;
+        height: 330px;
+        color: #000;
+      }
+      .popup ion-icon {
+        color: #00ff00;
+        font-size: 50px;
+      }
+      .popup button {
+        width: 100%;
+        background: #00ff00;
+        padding: 10px 0;
+        margin-top: 50px;
+        border: none;
+        outline: none;
+        font-size: 18px;
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+      }
+      .popup a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        letter-spacing: 2px;
+      }
+      .open-slide {
+        top: 50%;
+        transform: translate(-50%, -50%) scale(1);
+        visibility: visible;
+      }
+      input[type="file"] {
+        display: none;
+      }
+      #images {
+        width: 90%;
+        position: relative;
+        margin: auto;
+        display: flex;
+        justify-content: space-evenly;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      figure {
+        width: 45%;
+        position: relative;
+        margin-bottom: 20px;
+      }
+      img {
+        width: 100%;
+        margin-top: 10%;
+      }
+      figcaption {
+        text-align: center;
+        font-size: 2.4vmin;
+        margin-top: 0.5vmin;
+        color: #fff;
+      }
+      .imageLabel {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        background-color: #de2025;
+        color: #ffffff;
+        font-size: 18px;
+        text-align: center;
+        width: 70%;
+        padding: 18px 0;
+        margin: auto;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+    <div class="container">
+      <div class="form-box">
+        <form
+          action="/api/v1/admin/registerUser"
+          method="post"
+          name="formFill"
+          onsubmit="return validation()"
+          enctype="multipart/form-data"
+        >
+          <h2>Register</h2>
+          <p id="result"></p>
+          <div class="input-box">
+            <i class="bx bxs-user"></i>
+            <input type="text" placeholder="Name" name="name" />
+          </div>
+          <div class="input-box">
+            <i class="bx bx-envelope"></i>
+            <input type="email" placeholder="Email" name="email" />
+          </div>
+          <div class="input-box">
+            <i class="bx bx-lock-alt"></i>
+            <input type="password" placeholder="Password" name="password" />
+          </div>
+          <div class="input-box">
+            <i class="bx bx-lock-alt"></i>
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              name="cpassword"
+            />
+          </div>
+          <div class="input-box">
+            <label for="inputimage" class="imageLabel">Choose Image<ion-icon name="cloud-upload-outline"></ion-icon> 
+            </label>
+            <input
+              type="file"
+              class="imageLabel"
+              id="inputimage"
+              accept="image/png, image/jpeg"
+              onchange="preview()"
+              name="image"
+            />
+            <div id="images"></div>
+          </div>
+
+          <div class="button">
+            <input
+              type="submit"
+              class="btn"
+              onclick="validation()"
+              value="Register"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="popup" id="popup">
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+        <h2>Thank You!</h2>
+        <p>Registered Successfully</p>
+        <a href="#"><button onclick="CloseSlide()">OK</button></a>
+      </div>
+    </div>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <script>
+      function validation() {
+        if (document.formFill.name.value == "") {
+          document.getElementById("result").innerHTML = "Enter Name*";
+          return false;
+        } else if (document.formFill.email.value == "") {
+          document.getElementById("result").innerHTML = "Enter Your Email*";
+          return false;
+        } else if (document.formFill.password.value == "") {
+          document.getElementById("result").innerHTML = "Enter Your Password*";
+          return false;
+        } else if (document.formFill.password.length < 8) {
+          document.getElementById("result").innerHTML =
+            "Password must be atleast 8 characters long";
+          return false;
+        } else if (document.formFill.cpassword.value == "") {
+          document.getElementById("result").innerHTML =
+            "Enter Confirm Password*";
+          return false;
+        } else if (
+          document.formFill.password.value !== document.formFill.cpassword.value
+        ) {
+          document.getElementById("result").innerHTML =
+            "Password does not match";
+          return false;
+        } else if (
+          document.formFill.password.value == document.formFill.cpassword.value
+        ) {
+          popup.classList.add("open-slide");
+        }
+      }
+      var popup = document.getElementById("popup");
+      function CloseSlide() {
+        popup.classList.remove("open-slide");
+      }
+      let fileInput = document.getElementById("inputimage");
+      let imageContainer = document.getElementById("images");
+      function preview() {
+        imageContainer.innerHTML = "";
+
+        let reader = new FileReader();
+        let figure = document.createElement("figure");
+        let figCap = document.createElement("figcaption");
+        figCap.innerText = fileInput.files[0].name;
+
+        figure.appendChild(figCap);
+        reader.onload = () => {
+          let img = document.createElement("img");
+          img.setAttribute("src", reader.result);
+          figure.insertBefore(img, figCap);
+        };
+        imageContainer.appendChild(figure);
+        reader.readAsDataURL(fileInput.files[0]);
+      }
+    </script>
+  </body>
+</html>

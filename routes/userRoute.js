@@ -12,7 +12,8 @@ const {
   getSingleUser,
   updateUserByAdmin,
   deleteUser,
-  getLoginForm
+  getLoginForm,
+  renderRegisterationForm
 } = require("../controllers/userController");
 const multer = require("multer");
 const { isAuthenticatedUser, authorizedRoles } = require("../middlewares/auth");
@@ -27,7 +28,7 @@ router
     authorizedRoles("admin"),
     upload.single("image"),
     registerUser
-  );
+  ).get(isAuthenticatedUser,authorizedRoles("admin"),renderRegisterationForm);
 router.route("/login").post(loginUser).get(getLoginForm);
 router.route("/logout").get(logout);
 router.route("/password/forgot").post(forgotPassword);

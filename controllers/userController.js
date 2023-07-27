@@ -1,3 +1,5 @@
+const dotenv = require("dotenv");
+dotenv.config();
 const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const User = require("../models/userModel");
@@ -5,16 +7,18 @@ const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("node:crypto");
 const { send } = require("node:process");
-const { ImageUploadService } = require("node-upload-images");
+const ImgbbUploader = require("imgbb-uploader");
 //Register a User
 
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
-  const service = new ImageUploadService("postimages.org");
   const imageBuffer = req.file.buffer;
-  let { directLink } = await service.uploadFromBinary(
-    imageBuffer,
-    req.body.name
-  );
+  const options = {
+    apiKey: process.env.IMGBB_API, // Replace with your ImgBB API key
+        base64string: imageBuffer.toString("base64"),
+        name: req.body.name, // Replace with the desired image name
+  }
+  const response = await ImgbbUploader(options);
+  directLink = response.display_url;
   const { name, email, password } = req.body;
   // Create a new User object with the form data
   const newUser = new User({
@@ -52,6 +56,9 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
 
 exports.getLoginForm = (req, res, next) => {
   res.render("login");
+};
+exports.renderRegisterationForm = (req, res, next) => {
+  res.render("registrationForm");
 };
 //Logout User
 
@@ -157,12 +164,15 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
   };
   if (req.file) {
     // If a new image is uploaded, upload it to imgbox
-    const service = new ImageUploadService("postimages.org");
     const imageBuffer = req.file.buffer;
-    let { directLink } = await service.uploadFromBinary(
-      imageBuffer,
-      req.body.name
-    );
+    const options = {
+      apiKey: process.env.IMGBB_API, // Replace with your ImgBB API key
+          base64string: imageBuffer.toString("base64"),
+          name: req.body.name, // Replace with the desired image name
+    }
+    const response = await ImgbbUploader(options);
+    directLink = response.display_url;
+    
     newUserData.image = directLink; // Update the image field with the new image URL
   }
   const user = await User.findByIdAndUpdate(req.user.id, newUserData, {

@@ -5,7 +5,6 @@ const bodyParser = require("body-parser");
 const errorMiddleware = require("./middlewares/error");
 const ejs = require("ejs");
 const multer = require("multer");
-const {ImageUploadService} = require("node-upload-images");
 const app = express();
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());

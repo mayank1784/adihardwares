@@ -14,6 +14,7 @@
     />
   </head>
   <style>
+   
     input[type="file"] {
       display: none;
     }
@@ -101,8 +102,7 @@
             id="imageForm"
             action="/api/v1/addProduct"
             method="post"
-            enctype="multipart/form-data"
-          >
+            enctype="multipart/form-data">
             <div class="form-group">
               <label for="categoryName">Category Name:</label>
               <input
@@ -141,15 +141,16 @@
               />
             </div>
             <div class="form-group">
-              <label for="file-input" class="imageLabel">
+              <label for="inputimages" class="imageLabel">
                 <i class="fas fa-upload"></i> &nbsp; Choose Images To Upload
               </label>
               <input
                 type="file"
-                id="file-input"
+                id="inputimages"
                 accept="image/png, image/jpeg"
                 onchange="preview()"
                 multiple
+                name="inputimages"
               />
 
               <p id="num-of-files">No Images Chosen</p>
@@ -164,7 +165,7 @@
     </div>
     <script>
       let selectedFiles = [];
-      let fileInput = document.getElementById("file-input");
+      let fileInput = document.getElementById("inputimages");
       let imageContainer = document.getElementById("images");
       let numOfFiles = document.getElementById("num-of-files");
 
@@ -208,6 +209,7 @@
 
         updateNumOfFilesText(); // Update the "Files Selected" text after selecting new images
       }
+      
     </script>
   </body>
 </html>

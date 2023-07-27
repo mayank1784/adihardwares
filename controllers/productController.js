@@ -1,22 +1,48 @@
+const dotenv = require("dotenv");
+dotenv.config();
 const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const Category = require("../models/categorySchema");
 const Image = require("../models/imageSchema");
 const Subcategory = require("../models/subcategorySchema");
 const SubSubcategory = require("../models/subSubcategorySchema");
-const { ImageUploadService } = require("node-upload-images");
-const service = new ImageUploadService("postimages.org");
+const ImgbbUploader = require("imgbb-uploader");
 
 
 exports.addProduct = catchAsyncErrors(async (req, res, next) => {
-    const { categoryName, subcategoryName, subsubcategoryName, imageUrls } = req.body;
-  console.log("req body: ", req.body);
+    const { categoryName, subcategoryName, subsubcategoryName, caption} = req.body;
+  console.log("req category: ", categoryName);
+  console.log("subcate: ",subcategoryName);
+  console.log("subsub: ",subsubcategoryName);
+  console.log("capt: ",caption);
+  const imageBuffers = req.files.map((file) => file.buffer);
+  console.log("imgbuffer", imageBuffers);
+  const directLinks = [];
+
+  for (const imageBuffer of imageBuffers) {
+    try {
+      const options = {
+        apiKey: process.env.IMGBB_API, // Replace with your ImgBB API key
+        base64string: imageBuffer.toString("base64"),
+        name: req.body.name, // Replace with the desired image name
+      };
+      const response = await ImgbbUploader(options);
+      directLinks.push(response.display_url);
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      // Handle errors as needed
+    }
+  }
+
+  console.log("List of direct links:", directLinks);
+
+  
     // Convert imageUrls to an array of objects with optional captions
-    const images = imageUrls.split("\n").map((url) => {
-      const [imageUrl, caption] = url.split("|");
-      return { imageUrl: imageUrl.trim(), caption: caption ? caption.trim() : undefined };
-    });
-    console.log(images);
+    // const images = imageUrls.split("\n").map((url) => {
+    //   const [imageUrl, caption] = url.split("|");
+    //   return { imageUrl: imageUrl.trim(), caption: caption ? caption.trim() : undefined };
+    // });
+    // console.log(images);
   
     try {
       // // Find or create the category
