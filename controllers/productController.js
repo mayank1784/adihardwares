@@ -7,16 +7,24 @@ const Image = require("../models/imageSchema");
 const Subcategory = require("../models/subcategorySchema");
 const SubSubcategory = require("../models/subSubcategorySchema");
 const ImgbbUploader = require("imgbb-uploader");
+var _ = require("lodash");
 
+function lowerCaseIfNotEmpty(str) {
+  if (str.trim() === "") {
+    return undefined;
+  } else {
+    return _.lowerCase(str.trim());
+  }
+}
 
 exports.addProduct = catchAsyncErrors(async (req, res, next) => {
-    const { categoryName, subcategoryName, subsubcategoryName, caption} = req.body;
-  console.log("req category: ", categoryName);
-  console.log("subcate: ",subcategoryName);
-  console.log("subsub: ",subsubcategoryName);
-  console.log("capt: ",caption);
+  const categoryName = lowerCaseIfNotEmpty(req.body.categoryName);
+  const subcategoryName = lowerCaseIfNotEmpty(req.body.subcategoryName);
+  const subsubcategoryName = lowerCaseIfNotEmpty(req.body.subsubcategoryName);
+  const caption = lowerCaseIfNotEmpty(req.body.caption);
+
   const imageBuffers = req.files.map((file) => file.buffer);
-  console.log("imgbuffer", imageBuffers);
+  
   const directLinks = [];
 
   for (const imageBuffer of imageBuffers) {
@@ -29,87 +37,85 @@ exports.addProduct = catchAsyncErrors(async (req, res, next) => {
       const response = await ImgbbUploader(options);
       directLinks.push(response.display_url);
     } catch (error) {
-      console.error("Error uploading image:", error);
-      // Handle errors as needed
+      throw next(error);
     }
   }
+  
+  try {
+    if (categoryName) {
+      if (!subcategoryName) {
+        // Case 1: Create category with its name and images
+        const imageUrls = directLinks.map((url) => ({
+          url,
+          caption: categoryName, // Replace this with the common caption you want to use for all images
+        }));
+        const images = await Image.create({ imageUrl: imageUrls });
 
-  console.log("List of direct links:", directLinks);
+        const category = await Category.create({
+          name: categoryName,
+          images: images._id,
+        });
+      } else if (subcategoryName && !subsubcategoryName) {
+        // Case 2: Create category, link created subcategory, and link created images with that subcategory
+        const imageUrls = directLinks.map((url) => ({
+          url,
+          caption: subcategoryName, // Replace this with the common caption you want to use for all images
+        }));
+        const images = await Image.create({ imageUrl: imageUrls });
+        const subcategory = await Subcategory.create({
+          name: subcategoryName,
+          images: images._id,
+        });
 
-  
-    // Convert imageUrls to an array of objects with optional captions
-    // const images = imageUrls.split("\n").map((url) => {
-    //   const [imageUrl, caption] = url.split("|");
-    //   return { imageUrl: imageUrl.trim(), caption: caption ? caption.trim() : undefined };
-    // });
-    // console.log(images);
-  
-    try {
-      // // Find or create the category
-      // let category = await Category.findOne({ name: categoryName });
-      // if (!category) {
-      //   category = new Category({ name: categoryName });
-      // }
-  
-      // // Find or create the subcategory under the category
-      // let subcategory;
-      // if (subcategoryName) {
-      //   subcategory = category.subcategories.find((sub) => sub.name === subcategoryName);
-      //   if (!subcategory) {
-      //     subcategory = new Subcategory({ name: subcategoryName });
-      //     category.subcategories.push(subcategory._id);
-      //   }
-      // }
-  
-      // // Find or create the subsubcategory under the subcategory
-      // let subsubcategory;
-      // if (subsubcategoryName) {
-      //   if (subcategory) {
-      //     subsubcategory = subcategory.subcategories.find((subsub) => subsub.name === subsubcategoryName);
-      //   }
-      //   if (!subsubcategory) {
-      //     subsubcategory = new SubSubcategory({ name: subsubcategoryName });
-      //     if (subcategory) {
-      //       subcategory.subSubcategories.push(subsubcategory);
-      //     } else {
-      //       subcategory = new Subcategory({ name: subcategoryName, subSubcategories: [subsubcategory] });
-      //       category.subcategories.push(subcategory);
-      //     }
-      //   }
-      // }
-  
-      // // Determine the correct array to add images to
-      // let imageArray;
-      // if (subsubcategory) {
-      //   imageArray = subsubcategory.images;
-      // } else if (subcategory) {
-      //   imageArray = subcategory.images;
-      // } else {
-      //   imageArray = category.images;
-      // }
-  
-      // // Save images to the database and push image references to the array
-      // await Promise.all(images.map(async (image) => {
-      //   if (image.caption) {
-      //     const newImage = new Image({ imageUrl: image.imageUrl, caption: image.caption });
-      //     await newImage.save();
-      //     imageArray.push(newImage);
-      //   } else {
-      //     const newImage = new Image({ imageUrl: image.imageUrl });
-      //     await newImage.save();
-      //     imageArray.push(newImage);
-      //   }
-      // }));
-  
-      // await category.save();
-  
-      res.status(200).json({ message: "Form data saved successfully." });
-    } catch (err) {
-      console.error("Error while saving form data:", err);
-      res.status(500).json({ error: "An error occurred while saving the form data." });
+        // Find the category based on the categoryName
+        let category;
+        category = await Category.findOne({ name: categoryName });
+        if (category === null) {
+          category = await Category.create({ name: categoryName });
+        }
+        // Add the subcategory ID to the category's subcategories array
+        category.subcategories.push(subcategory._id);
+        await category.save();
+      } else if (subcategoryName && subsubcategoryName) {
+        // Case 3: Create category, link created subcategory, link created subsubcategory, and link created images with that subsubcategory
+        const imageUrls = directLinks.map((url) => ({
+          url,
+          caption: subsubcategoryName, // Replace this with the common caption you want to use for all images
+        }));
+        const images = await Image.create({ imageUrl: imageUrls });
+        const subsubcategory = await SubSubcategory.create({
+          name: subsubcategoryName,
+          images: images._id,
+        });
+        let subcategory;
+        subcategory = await Subcategory.findOne({
+          name: subcategoryName,
+        });
+        if (subcategory === null) {
+          subcategory = await Subcategory.create({ name: subcategoryName });
+        }
+
+        // Add the subsubcategory ID to the subcategory's subsubcategories array
+        subcategory.subsubcategories.push(subsubcategory._id);
+        await subcategory.save();
+        let category;
+        category = await Category.findOne({ name: categoryName });
+        if (category === null) {
+          category = await Category.create({ name: categoryName });
+        }
+        // Add the subcategory ID to the category's subcategories array
+        category.subcategories.push(subcategory._id);
+        await category.save();
+      }
+    } else {
+      return next(new ErrorHandler("Category name is required", 500));
     }
-  });
-  
+    console.log("Data saved successfully");
+    res.status(200).redirect("/api/v1/addProduct");
+  } catch (err) {
+    throw next(err);
+  }
+});
 
 exports.renderForm = (req, res, next) => {
   res.render("form");

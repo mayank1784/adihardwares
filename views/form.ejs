@@ -14,7 +14,6 @@
     />
   </head>
   <style>
-   
     input[type="file"] {
       display: none;
     }
@@ -57,7 +56,7 @@
       border-radius: 5px;
       cursor: pointer;
     }
-    #submitB{
+    #submitB {
       display: block;
       position: relative;
       background-color: #de2025;
@@ -84,7 +83,8 @@
       align-items: center;
       cursor: pointer;
     }
-    .imageLabel:hover,#submitB:hover{
+    .imageLabel:hover,
+    #submitB:hover {
       background-color: #af2220;
     }
     @media (max-width: 768px) {
@@ -92,8 +92,10 @@
         width: 100%;
       }
     }
+    
   </style>
   <body>
+    
     <div class="container mt-5">
       <div class="row justify-content-center">
         <div class="col-md-8">
@@ -102,7 +104,8 @@
             id="imageForm"
             action="/api/v1/addProduct"
             method="post"
-            enctype="multipart/form-data">
+            enctype="multipart/form-data"
+          >
             <div class="form-group">
               <label for="categoryName">Category Name:</label>
               <input
@@ -157,7 +160,9 @@
               <div id="images"></div>
             </div>
             <div class="form-group text-center">
-              <button type="submit" class="btn btn-primary" id="submitB">Submit</button>
+              <button type="submit" class="btn btn-primary" id="submitB">
+                Submit
+              </button>
             </div>
           </form>
         </div>
@@ -170,7 +175,12 @@
       let numOfFiles = document.getElementById("num-of-files");
 
       function updateNumOfFilesText() {
-        numOfFiles.textContent = `${selectedFiles.length} Files Selected`;
+        numOfFiles.textContent =
+          selectedFiles.length > 0
+            ? `${selectedFiles.length} File${
+                selectedFiles.length > 1 ? "s" : ""
+              } Selected`
+            : "No Images Chosen";
       }
 
       function preview() {
@@ -209,7 +219,65 @@
 
         updateNumOfFilesText(); // Update the "Files Selected" text after selecting new images
       }
-      
+
+      const categoryNameInput = document.getElementById("categoryName");
+      const subcategoryNameInput = document.getElementById("subcategoryName");
+      const subsubcategoryNameInput =
+        document.getElementById("subsubcategoryName");
+      const captionInput = document.getElementById("caption");
+
+      // Function to enable/disable the input fields based on the hierarchy
+      function toggleFormFields() {
+        const categoryName = categoryNameInput.value.trim();
+        const subcategoryName = subcategoryNameInput.value.trim();
+        const subsubcategoryName = subsubcategoryNameInput.value.trim();
+        const caption = captionInput.value.trim();
+
+        // Disable subcategory and sub-subcategory fields if no category is provided
+        if (categoryName === "") {
+          subcategoryNameInput.disabled = true;
+          subsubcategoryNameInput.disabled = true;
+        } else {
+          subcategoryNameInput.disabled = false;
+          subsubcategoryNameInput.disabled = false;
+        }
+
+        // Disable sub-subcategory field if no subcategory is provided
+        if (subcategoryName === "") {
+          subsubcategoryNameInput.disabled = true;
+        } else {
+          subsubcategoryNameInput.disabled = false;
+        }
+
+        // If only Category and Images with or without caption is provided,
+        // then subCategory and subsubcategory inputs will be disabled
+        if (
+          categoryName !== "" &&
+          subcategoryName === "" &&
+          selectedFiles.length > 0
+        ) {
+          subcategoryNameInput.disabled = true;
+          subsubcategoryNameInput.disabled = true;
+        }
+
+        // If only Category, subcategory, and Images with or without caption is provided,
+        // then subsubcategory inputs will be disabled
+        if (
+          categoryName !== "" &&
+          subcategoryName !== "" &&
+          subsubcategoryName === "" &&
+          selectedFiles.length > 0
+        ) {
+          subsubcategoryNameInput.disabled = true;
+        }
+      }
+
+      // Call the toggleFormFields function initially and whenever the input values change
+      toggleFormFields();
+      categoryNameInput.addEventListener("input", toggleFormFields);
+      subcategoryNameInput.addEventListener("input", toggleFormFields);
+      selectedFiles.addEventListener("change", toggleFormFields);
+
     </script>
   </body>
 </html>

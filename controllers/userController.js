@@ -8,6 +8,7 @@ const sendEmail = require("../utils/sendEmail");
 const crypto = require("node:crypto");
 const { send } = require("node:process");
 const ImgbbUploader = require("imgbb-uploader");
+const _ = require("lodash");
 //Register a User
 
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
@@ -19,7 +20,9 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
   }
   const response = await ImgbbUploader(options);
   directLink = response.display_url;
-  const { name, email, password } = req.body;
+  const name = _.toLower(req.body.name);
+  const email = _.toLower(req.body.email);
+  const password = _.toLower(req.body.password);
   // Create a new User object with the form data
   const newUser = new User({
     name,
@@ -159,8 +162,8 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
 //Update User Profile
 exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
   const newUserData = {
-    name: req.body.name,
-    email: req.body.email,
+    name: _.toLower(req.body.name),
+    email: _.toLower(req.body.email),
   };
   if (req.file) {
     // If a new image is uploaded, upload it to imgbox
