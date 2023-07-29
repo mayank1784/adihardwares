@@ -32,18 +32,11 @@ app.use(express.static("public"));
 //Routes Imports
 const user = require("./routes/userRoute");
 const product = require("./routes/productRoute");
+const home = require("./routes/homeRoute");
 
 app.use("/api/v1",user);
 app.use("/api/v1",product);
-
-app.get("/", function (req, res) {
-  res.render("home", {
-    title: "Adi Hardwares - Door Handles | Modular Kitchen | Hinges",
-  });
-});
-app.get("/index", (req, res) => {
-  res.render("index");
-});
+app.use("/",home);
 
 
 app.listen(process.env.PORT, (req, res) => {

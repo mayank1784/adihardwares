@@ -1,6 +1,6 @@
 // categorySchema.js
 const mongoose = require("mongoose");
-const subcategorySchema = require("./subcategorySchema"); // Ensure the correct casing here
+const Subcategory = require("./subcategorySchema"); // Ensure the correct casing here
 
 const categorySchema = new mongoose.Schema({
   name: {

@@ -1,6 +1,6 @@
 // subcategorySchema.js
 const mongoose = require("mongoose");
-const subSubcategorySchema = require("./subSubcategorySchema");
+const SubSubcategory = require("./subSubcategorySchema");
 // const imageSchema = require("./imageSchema");
 
 const subcategorySchema = new mongoose.Schema({

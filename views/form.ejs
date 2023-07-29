@@ -92,10 +92,15 @@
         width: 100%;
       }
     }
-    
+    .dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+  }
+  .dropdown-item.active {
+    background-color: #de2025;
+  }
   </style>
   <body>
-    
     <div class="container mt-5">
       <div class="row justify-content-center">
         <div class="col-md-8">
@@ -115,6 +120,18 @@
                 name="categoryName"
                 required
               />
+              <!-- Hidden dropdown for Category Name -->
+              <div
+                class="dropdown"
+                id="categoryDropdown"
+                style="display: none"
+              >
+              <% categoryData.forEach(category => { %>
+                <div class="dropdown-item" onclick="selectOption('categoryName', '<%= category.name %>')">
+                  <%= category.name %>
+                </div>
+              <% }); %>
+            </div>
             </div>
             <div class="form-group">
               <label for="subcategoryName">Subcategory Name:</label>
@@ -124,6 +141,17 @@
                 id="subcategoryName"
                 name="subcategoryName"
               />
+              <div
+                class="dropdown"
+                id="subcategoryDropdown"
+                style="display: none"
+              >
+              <% subcategoryData.forEach(subcategory => { %>
+                <div class="dropdown-item" onclick="selectOption('subcategoryName', '<%= subcategory.name %>')">
+                  <%= subcategory.name %>
+                </div>
+              <% }); %>
+            </div>
             </div>
             <div class="form-group">
               <label for="subsubcategoryName">Sub-subcategory Name:</label>
@@ -133,6 +161,17 @@
                 id="subsubcategoryName"
                 name="subsubcategoryName"
               />
+              <div
+                class="dropdown"
+                id="subsubcategoryDropdown"
+                style="display: none"
+              >
+              <% subsubcategoryData.forEach(subsubcategory => { %>
+                <div class="dropdown-item" onclick="selectOption('subsubcategoryName', '<%= subsubcategory.name %>')">
+                  <%= subsubcategory.name %>
+                </div>
+              <% }); %>
+            </div>
             </div>
             <div class="form-group">
               <label for="caption">Caption:</label>
@@ -150,7 +189,7 @@
               <input
                 type="file"
                 id="inputimages"
-                accept="image/png, image/jpeg"
+                accept="image/*"
                 onchange="preview()"
                 multiple
                 name="inputimages"
@@ -169,6 +208,109 @@
       </div>
     </div>
     <script>
+      
+  let selectedDropdownItemIndex = -1;
+
+// Handle keyboard navigation for the dropdown
+function handleDropdownKeyboardNavigation(event) {
+    const dropdownItems = document.querySelectorAll(".dropdown-item");
+    if (event.key === "ArrowUp" && selectedDropdownItemIndex > 0) {
+      selectedDropdownItemIndex--;
+    } else if (
+      event.key === "ArrowDown" &&
+      selectedDropdownItemIndex < dropdownItems.length - 1
+    ) {
+      selectedDropdownItemIndex++;
+    } else if (event.key === "Enter" && selectedDropdownItemIndex >= 0) {
+      // Populate the form field with the selected dropdown value on pressing Enter
+      const selectedValue = dropdownItems[selectedDropdownItemIndex].textContent;
+      const inputFieldId = dropdownItems[selectedDropdownItemIndex].dataset.inputField;
+      const inputField = document.getElementById(inputFieldId);
+      inputField.value = selectedValue;
+      const dropdownId = inputFieldId + "Dropdown";
+      const dropdown = document.getElementById(dropdownId);
+      dropdown.style.display = "none";
+    }
+
+    // Apply active class to highlight the selected item
+    dropdownItems.forEach((item, index) => {
+      item.classList.toggle("active", index === selectedDropdownItemIndex);
+    });
+  }
+      // Function to populate the dropdown with matching values based on user input
+      function populateDropdown(inputField, dropdown, values) {
+        dropdown.innerHTML = ""; // Clear previous dropdown items
+        const inputValue = inputField.value.trim().toLowerCase();
+
+        // Filter the matching values based on user input
+        const matchingValues = values.filter((value) =>
+          value.toLowerCase().startsWith(inputValue)
+        );
+
+        // Populate the dropdown with matching values
+        matchingValues.forEach((value) => {
+          const option = document.createElement("div");
+          option.textContent = value;
+          option.classList.add("dropdown-item");
+          option.addEventListener("click", () => {
+            inputField.value = value;
+            dropdown.style.display = "none";
+          });
+          dropdown.appendChild(option);
+        });
+
+        // Show the dropdown if there are matching values, otherwise hide it
+        dropdown.style.display = matchingValues.length > 0 ? "block" : "none";
+      }
+      const categoryNameInput = document.getElementById("categoryName");
+      const subcategoryNameInput = document.getElementById("subcategoryName");
+      const subsubcategoryNameInput =
+        document.getElementById("subsubcategoryName");
+      const captionInput = document.getElementById("caption");
+      // Fetch the categoryData from EJS template and parse it to JavaScript array
+  const categoryData = JSON.parse('<%- JSON.stringify(categoryData) %>');
+  const subcategoryData = JSON.parse('<%- JSON.stringify(subcategoryData) %>');
+  const subsubcategoryData = JSON.parse('<%- JSON.stringify(subsubcategoryData) %>');
+
+  
+
+  // Call the populateDropdown function whenever the user types in the input fields
+  categoryNameInput.addEventListener("keyup", () => {
+    populateDropdown(categoryNameInput, categoryDropdown, categoryData);
+  });
+
+  subcategoryNameInput.addEventListener("keyup", () => {
+    populateDropdown(subcategoryNameInput, subcategoryDropdown, subcategoryData);
+  });
+
+  subsubcategoryNameInput.addEventListener("keyup", () => {
+    populateDropdown(subsubcategoryNameInput, subsubcategoryDropdown, subsubcategoryData);
+  });
+  // Attach keyboard event listener to handle keyboard navigation
+  categoryNameInput.addEventListener("keydown", (event) => {
+    // Prevent form submission on Enter key press
+    if (event.key === "Enter") {
+      event.preventDefault();
+    }
+    handleDropdownKeyboardNavigation(event);
+  });
+
+  subcategoryNameInput.addEventListener("keydown", (event) => {
+    // Prevent form submission on Enter key press
+    if (event.key === "Enter") {
+      event.preventDefault();
+    }
+    handleDropdownKeyboardNavigation(event);
+  });
+
+  subsubcategoryNameInput.addEventListener("keydown", (event) => {
+    // Prevent form submission on Enter key press
+    if (event.key === "Enter") {
+      event.preventDefault();
+    }
+    handleDropdownKeyboardNavigation(event);
+  });
+
       let selectedFiles = [];
       let fileInput = document.getElementById("inputimages");
       let imageContainer = document.getElementById("images");
@@ -220,11 +362,7 @@
         updateNumOfFilesText(); // Update the "Files Selected" text after selecting new images
       }
 
-      const categoryNameInput = document.getElementById("categoryName");
-      const subcategoryNameInput = document.getElementById("subcategoryName");
-      const subsubcategoryNameInput =
-        document.getElementById("subsubcategoryName");
-      const captionInput = document.getElementById("caption");
+      
 
       // Function to enable/disable the input fields based on the hierarchy
       function toggleFormFields() {
@@ -277,7 +415,6 @@
       categoryNameInput.addEventListener("input", toggleFormFields);
       subcategoryNameInput.addEventListener("input", toggleFormFields);
       selectedFiles.addEventListener("change", toggleFormFields);
-
     </script>
   </body>
 </html>
