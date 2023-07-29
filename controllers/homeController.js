@@ -1,7 +1,7 @@
 const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
-const subcategorySchema = require("../models/subcategorySchema");
-const categorySchema = require("../models/categorySchema");
+const Subcategory = require("../models/subcategorySchema");
+const Category = require("../models/categorySchema");
 
 exports.renderHome = (req, res) =>
   res.render("home", {
@@ -9,7 +9,7 @@ exports.renderHome = (req, res) =>
   });
 exports.renderProducts = (req,res) => {
     categoryName = req.params.category;
-    subcategoryName = req.params.subcategory;
+    // subcategoryName = req.params.subcategory;
     console.log("cat",categoryName);
-    console.log("subcate", subcategoryName);
+    // console.log("subcate", subcategoryName);
 };
