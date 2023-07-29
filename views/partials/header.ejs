@@ -23,130 +23,20 @@
             <div class="row">
               <img src="../images/navimg.png" alt="" />
             </div>
-            <div class="row">
-              <header>Design Services</header>
-              <ul class="mega-links">
-                <li><a href="#">Graphics</a></li>
-                <li><a href="#">Vectors</a></li>
-                <li><a href="#">Business cards</a></li>
-                <li><a href="#">Custom logo</a></li>
-              </ul>
-            </div>
-            <div class="row">
-              <header>Email Services</header>
-              <ul class="mega-links">
-                <li><a href="#">Personal Email</a></li>
-                <li><a href="#">Business Email</a></li>
-                <li><a href="#">Mobile Email</a></li>
-                <li><a href="#">Web Marketing</a></li>
-              </ul>
-            </div>
-            <div class="row">
-              <header>Email Services</header>
-              <ul class="mega-links">
-                <li><a href="#">Personal Email</a></li>
-                <li><a href="#">Business Email</a></li>
-                <li><a href="#">Mobile Email</a></li>
-                <li><a href="#">Web Marketing</a></li>
-              </ul>
-            </div>
-            <div class="row">
-              <header>Email Services</header>
-              <ul class="mega-links">
-                <li><a href="#">Personal Email</a></li>
-                <li><a href="#">Business Email</a></li>
-                <li><a href="#">Mobile Email</a></li>
-                <li><a href="#">Web Marketing</a></li>
-                <li><a href="#">Web Marketing</a></li>
-                <li><a href="#">Web Marketing</a></li>
-                <li><a href="#">Web Marketing</a></li>
-                <li><a href="#">Web Marketing</a></li>
-                <li><a href="#">Web Marketing</a></li>
-              </ul>
-            </div>
-            <div class="row">
-              <header>Email Services</header>
-              <ul class="mega-links">
-                <li><a href="#">Personal Email</a></li>
-                <li><a href="#">Business Email</a></li>
-                <li><a href="#">Mobile Email</a></li>
-                <li><a href="#">Web Marketing</a></li>
-              </ul>
-            </div>
-            <div class="row">
-              <header>Email Services</header>
-              <ul class="mega-links">
-                <li><a href="#">Personal Email</a></li>
-                <li><a href="#">Business Email</a></li>
-                <li><a href="#">Mobile Email</a></li>
-                <li><a href="#">Web Marketing</a></li>
-              </ul>
-            </div>
-            <div class="row">
-              <header>Email Services</header>
-              <ul class="mega-links">
-                <li><a href="#">Personal Email</a></li>
-                <li><a href="#">Business Email</a></li>
-                <li><a href="#">Mobile Email</a></li>
-                <li><a href="#">Web Marketing</a></li>
-                <li><a href="#">Web Marketing</a></li>
-                <li><a href="#">Web Marketing</a></li>
-                <li><a href="#">Web Marketing</a></li>
-              </ul>
-            </div>
-            <div class="row">
-              <header>Email Services</header>
-              <ul class="mega-links">
-                <li><a href="#">Personal Email</a></li>
-                <li><a href="#">Business Email</a></li>
-              </ul>
-            </div>
-            <div class="row">
-              <header>Email Services</header>
-              <ul class="mega-links">
-                <li><a href="#">Personal Email</a></li>
-                <li><a href="#">Business Email</a></li>
-                <li><a href="#">Mobile Email</a></li>
-                <li><a href="#">Web Marketing</a></li>
-              </ul>
-            </div>
-            <div class="row">
-              <header>Email Services</header>
-              <ul class="mega-links">
-                <li><a href="#">Personal Email</a></li>
-                <li><a href="#">Business Email</a></li>
-                <li><a href="#">Mobile Email</a></li>
-                <li><a href="#">Web Marketing</a></li>
-              </ul>
-            </div>
-            <div class="row">
-              <header>Email Services</header>
-              <ul class="mega-links">
-                <li><a href="#">Personal Email</a></li>
-                <li><a href="#">Business Email</a></li>
-                <li><a href="#">Mobile Email</a></li>
-                <li><a href="#">Web Marketing</a></li>
-              </ul>
-            </div>
-            <div class="row">
-              <header>Email Services</header>
-              <ul class="mega-links">
-                <li><a href="#">Personal Email</a></li>
-                <li><a href="#">Business Email</a></li>
-                <li><a href="#">Mobile Email</a></li>
-                <li><a href="#">Web Marketing</a></li>
-              </ul>
-            </div>
-
-            <div class="row">
-              <header>Security services</header>
-              <ul class="mega-links">
-                <li><a href="#">Site Seal</a></li>
-                <li><a href="#">VPS Hosting</a></li>
-                <li><a href="#">Privacy Seal</a></li>
-                <li><a href="#">Website design</a></li>
-              </ul>
-            </div>
+            <% categories.forEach(category => { %>
+              <div class="row">
+                <a href="/search/<%= category.name %>"><header><%= category.name %></header></a>
+                <ul class="mega-links">
+                  <% if (category.subcategories.length > 0) { %>
+                    <% category.subcategories.forEach(subcategory => { %>
+                      <li><a href="/search/<%= category.name %>"><%= subcategory.name %></a></li>
+                      <% }) %>
+                      <% } else { %>
+                      <li><a href="/search/<%= category.name %>">Coming Soon...</a></li>
+                    <% } %>  
+                    </ul>
+                      </div>
+                      <% }) %>
           </div>
         </div>
       </li>
