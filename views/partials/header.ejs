@@ -1,7 +1,7 @@
 <nav>
   <div class="wrapper">
     <div class="logo">
-      <a href="#"
+      <a href="/"
         ><img src="../images/logo.png" alt="logo" />
         <h3>Adi Hardwares</h3></a
       >
@@ -25,14 +25,14 @@
             </div>
             <% categories.forEach(category => { %>
               <div class="row">
-                <a href="/search/<%= category.name %>"><header><%= category.name %></header></a>
+                <a href="/search/<%= encodeURIComponent(category.name) %>"><header><%= category.name %></header></a>
                 <ul class="mega-links">
                   <% if (category.subcategories.length > 0) { %>
                     <% category.subcategories.forEach(subcategory => { %>
-                      <li><a href="/search/<%= category.name %>"><%= subcategory.name %></a></li>
+                      <li><a href="/search/<%= encodeURIComponent(category.name) %>/#<%= encodeURIComponent(subcategory.name.toLowerCase()) %>"><%= subcategory.name %></a></li>
                       <% }) %>
                       <% } else { %>
-                      <li><a href="/search/<%= category.name %>">Coming Soon...</a></li>
+                      <li><a href="/search/<%= encodeURIComponent(category.name) %>">Coming Soon...</a></li>
                     <% } %>  
                     </ul>
                       </div>

@@ -35,13 +35,14 @@
   .card .img-container {
     position: relative;
     overflow: hidden;
-    height: 300px; /* Adjust this value as needed to set the desired height */
+    height: 100%;/* Adjust this value as needed to set the desired height */
+    width: 100%;
   }
 
   .card .img-container img {
     object-fit: cover;
-    width: 100%;
-    height: 100%;
+    width: 300px;
+    height:300px;
   }
 
   .card .img-container::before {
@@ -61,220 +62,195 @@
     display: flex;
     align-items: center;
   }
+  .whatsapp-link:hover{
+    color:#de2025;
+  }
 
   /* Optional: Add padding between the icon and text */
   .whatsapp-link i {
     margin-right: 5px;
   }
+  .aaloo h1{
+    font-weight: 600;
+  }
+.container.mt-5 h3{
+  margin-top: 50px;
+}
+.aaloo{
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+.aaloo .container-bg {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .aaloo .container-bg img {
+      width: 100%;
+      height: 250px;
+      display: block;
+      object-fit: cover;
+    }
+
+    .aaloo .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5); /* Customize the opacity here */
+    }
+
+    .aaloo .text-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-size: 24px;
+    }
+    .container.mt-5 h2{
+      color: #de2025;
+    }
+    .container.mt-5 h3{
+      color: #af2220;
+    }
+    @media (max-width: 767px) {
+      .aaloo .container-bg img{
+        height: 100px;
+      }
+    }
 </style>
-<div class="container mt-5">
-  <h1 class="text-center font-weight-normal">Jquery product cards</h1>
-  <div class="container mt-4 d-flex mb-5">
-    <div class="row">
-      <div class="col-md-4 mt-5">
-        <div class="card">
-          <div class="img-container">
-            <img src="images/work-3.jpg" alt="" class="card-img-top w-100" />
-          </div>
-          <div class="card-body">
-            <h2 class="card-title">Sony</h2>
-            <div class="d-flex justify-content-between">
-              <p class="card-text">
-                sdjbdh dsjfbdhufbd fdhfhiufes fdsjhfgdhsf dhgdfh dshgs
-              </p>
-              <a
-                href="https://api.whatsapp.com/send?phone=917838898930&text=Hi%21%20I%20want%20to%20enquire%20about%20your%20products"
-                class="whatsapp-link"
-              >
-                <i class="fab fa-whatsapp fa-2x"></i>
-              </a>
-            </div>
-            <a
-              href="#"
-              class="card-link"
-              data-toggle="modal"
-              data-target="#modalId"
-              >More</a
-            >
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mt-5">
-        <div class="card">
-          <div class="img-container">
-            <img src="images/work-3.jpg" alt="" class="card-img-top w-100" />
-          </div>
-          <div class="card-body">
-            <h2 class="card-title">Sony</h2>
-            <div class="d-flex justify-content-between">
-              <p class="card-text">
-                sdjbdh dsjfbdhufbd fdhfhiufes fdsjhfgdhsf dhgdfh dshgs
-              </p>
-              <a
-                href="https://api.whatsapp.com/send?phone=917838898930&text=Hi%21%20I%20want%20to%20enquire%20about%20your%20products"
-                class="whatsapp-link"
-              >
-                <i class="fab fa-whatsapp fa-2x"></i>
-              </a>
-            </div>
-            <a
-              href="#"
-              class="card-link"
-              data-toggle="modal"
-              data-target="#modalId"
-              >More</a
-            >
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mt-5">
-        <div class="card">
-          <div class="img-container">
-            <img src="images/work-2.jpg" alt="" class="card-img-top w-100" />
-          </div>
-          <div class="card-body">
-            <h2 class="card-title">Sony</h2>
-            <div class="d-flex justify-content-between">
-              <p class="card-text">
-                sdjbdh dsjfbdhufbd fdhfhiufes fdsjhfgdhsf dhgdfh dshgs
-              </p>
-              <a
-                href="https://api.whatsapp.com/send?phone=917838898930&text=Hi%21%20I%20want%20to%20enquire%20about%20your%20products"
-                class="whatsapp-link"
-              >
-                <i class="fab fa-whatsapp fa-2x"></i>
-              </a>
-            </div>
-            <a
-              href="#"
-              class="card-link"
-              data-toggle="modal"
-              data-target="#modalId"
-              >More</a
-            >
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mt-5">
-        <div class="card">
-          <div class="img-container">
-            <img src="images/work-4.jpg" alt="" class="card-img-top w-100" />
-          </div>
-          <div class="card-body">
-            <h2 class="card-title">Sony</h2>
-            <div class="d-flex justify-content-between">
-              <p class="card-text">
-                sdjbdh dsjfbdhufbd fdhfhiufes fdsjhfgdhsf dhgdfh dshgs
-              </p>
-              <a
-                href="https://api.whatsapp.com/send?phone=917838898930&text=Hi%21%20I%20want%20to%20enquire%20about%20your%20products"
-                class="whatsapp-link"
-              >
-                <i class="fab fa-whatsapp fa-2x"></i>
-              </a>
-            </div>
-            <a
-              href="#"
-              class="card-link"
-              data-toggle="modal"
-              data-target="#modalId"
-              >More</a
-            >
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mt-5">
-        <div class="card">
-          <div class="img-container">
-            <img src="images/work-5.jpg" alt="" class="card-img-top w-100" />
-          </div>
-          <div class="card-body">
-            <h2 class="card-title">Sony</h2>
-            <div class="d-flex justify-content-between">
-              <p class="card-text">
-                sdjbdh dsjfbdhufbd fdhfhiufes fdsjhfgdhsf dhgdfh dshgs
-              </p>
-              <a
-                href="https://api.whatsapp.com/send?phone=917838898930&text=Hi%21%20I%20want%20to%20enquire%20about%20your%20products"
-                class="whatsapp-link"
-              >
-                <i class="fab fa-whatsapp fa-2x"></i>
-              </a>
-            </div>
-            <a
-              href="#"
-              class="card-link"
-              data-toggle="modal"
-              data-target="#modalId"
-              >More</a
-            >
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mt-5">
-        <div class="card">
-          <div class="img-container">
-            <img src="images/work-6.jpg" alt="" class="card-img-top w-100" />
-          </div>
-          <div class="card-body">
-            <h2 class="card-title">Sony</h2>
-            <div class="d-flex justify-content-between">
-              <p class="card-text">
-                sdjbdh dsjfbdhufbd fdhfhiufes fdsjhfgdhsf dhgdfh dshgs
-              </p>
-              <a
-                href="https://api.whatsapp.com/send?phone=917838898930&text=Hi%21%20I%20want%20to%20enquire%20about%20your%20products"
-                class="whatsapp-link"
-              >
-                <i class="fab fa-whatsapp fa-2x"></i>
-              </a>
-            </div>
-            <a
-              href="#"
-              class="card-link"
-              data-toggle="modal"
-              data-target="#modalId"
-              >More</a
-            >
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mt-5">
-        <div class="card">
-          <div class="img-container">
-            <img src="images/work-1.jpg" alt="" class="card-img-top w-100" />
-          </div>
-          <div class="card-body">
-            <h2 class="card-title">Sony</h2>
-            <div class="d-flex justify-content-between">
-              <p class="card-text">
-                sdjbdh dsjfbdhufbd fdhfhiufes fdsjhfgdhsf dhgdfh dshgs
-              </p>
-              <a
-                href="https://api.whatsapp.com/send?phone=917838898930&text=Hi%21%20I%20want%20to%20enquire%20about%20your%20products"
-                class="whatsapp-link"
-              >
-                <i class="fab fa-whatsapp fa-2x"></i>
-              </a>
-            </div>
-            <a
-              href="#"
-              class="card-link"
-              data-toggle="modal"
-              data-target="#modalId"
-              >More</a
-            >
-          </div>
-        </div>
-      </div>
+<% if (formattedCategory) { %>
+  <div class="aaloo">
+    <div class="container-fluid container-bg">
+      <div class="overlay"></div>
+      <img src="../images/kitchen.jpeg" alt="Image">
+      <div class="text-overlay"><h1 class="text-center font-weight-normal"><%= formattedCategory.name.toUpperCase() %></h1>
+      <h6 style="color: #cdcdcd;"><a href="/" style="color: #cdcdcd;"><span style="text-decoration: underline;">Home </span></a>> <span style="text-decoration: underline;"><%= formattedCategory.name.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) %></span></h6></div>
     </div>
-  </div>
-</div>
+    </div>
+<div class="container mt-5">
+  
+    
+  <% if (formattedCategory.images!==undefined && (!formattedCategory.subcategories || formattedCategory.subcategories.length === 0)) { %>
+    <div class="container mt-4 d-flex mb-5">
+    <div class="row">
+    <% for (const imgObj of formattedCategory.images.imageUrl) { %>
+      <div class="col-md-4 mt-5">
+        <div class="card">
+          <div class="img-container">
+            <img src="<%= imgObj.url %>" alt="<%= imgObj.caption %>" class="card-img-top w-100" />
+          </div>
+          <div class="card-body">
+            <h5 class="card-title"><%= imgObj.caption %></h5>
+            <div class="d-flex justify-content-between">
+              <p class="card-text">
+                <span style="color: #af2220;">Adi Hardwares</span> <%= imgObj.caption %>. Click on Whatsapp icon to know more and chat with company about the product.
+              </p>
+              <a
+                href="https://wa.me/send?phone=917838898930&text=Hi%21%0A%20I%20want%20to%20enquire%20about%20your%20product%0A%20Category%3A%20<%= encodeURIComponent(formattedCategory.name) %>%0A%20Item%3A%20<%= encodeURIComponent(imgObj.caption) %>%0A<%= encodeURIComponent(imgObj.url) %>"
+                class="whatsapp-link"
+              >
+                <i class="fab fa-whatsapp fa-2x"></i>
+              </a>
+            </div>
+            
+            >
+          </div>
+        </div>
+      </div>
+      <% } %>
+      </div>
+      </div>
+      <% } else if (formattedCategory.subcategories!==undefined && formattedCategory.subcategories.length > 0) { %>
+        
+ 
+      
+        <% for (const subformattedCategory of formattedCategory.subcategories) { %> 
+          <h2 class="text-center font-weight-normal" id="<%= subformattedCategory.name %>"><%= subformattedCategory.name.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) %></h2>
+          
+          <% if (subformattedCategory.images!==undefined && (!subformattedCategory.subSubcategories || subformattedCategory.subSubcategories.length === 0)) { %>
+            <div class="container mt-4 d-flex mb-5">
+              <div class="row">
+            <% for (const imgObj of subformattedCategory.images.imageUrl) { %>
+              <div class="col-md-4 mt-5">
+                <div class="card">
+                  <div class="img-container">
+                    <img src="<%= imgObj.url %>" alt="<%= imgObj.caption %>" class="card-img-top w-100" />
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title"><%= imgObj.caption.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) %></h5>
+                    <div class="d-flex justify-content-between">
+                      <p class="card-text">
+                        <span style="color: #af2220;">Adi Hardwares</span> <%= imgObj.caption %>. Click on Whatsapp icon to know more and chat with company about the product.
+                      </p>
+                      <a
+                        href="https://wa.me/send?phone=917838898930&text=Hi%21%0A%20I%20want%20to%20enquire%20about%20your%20product%0A%20Category%3A%20<%= encodeURIComponent(formattedCategory.name) %>%0A%20SubCategory%3A%20<%= encodeURIComponent(subformattedCategory.name) %>%0A%20Item%3A%20<%= encodeURIComponent(imgObj.caption) %>%0A<%= encodeURIComponent(imgObj.url) %>"
+                        class="whatsapp-link"
+                      >
+                        <i class="fab fa-whatsapp fa-2x"></i>
+                      </a>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+              <% } %>
+              </div>
+              </div>
+        <% } else if (subformattedCategory.subSubcategories!==undefined && subformattedCategory.subSubcategories.length > 0) { %>
+          <% for (const subSubformattedCategory of subformattedCategory.subSubcategories) { %>
+            <h3 class="text-left font-weight-normal"><%= subSubformattedCategory.name.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) %></h3>
+            <% if (subSubformattedCategory.images!==undefined) { %>
+              <div class="container mt-4 d-flex mb-5">
+                <div class="row">
+                  <% for (const imgObj of subSubformattedCategory.images.imageUrl) { %>
+        <div class="col-md-4 mt-5">
+          
+        <div class="card">
+          <div class="img-container">
+            <img src="<%= imgObj.url %>" alt="<%= imgObj.caption %>" class="card-img-top w-100" />
+          </div>
+          <div class="card-body">
+            <h5 class="card-title"><%= imgObj.caption.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) %></h5>
+            <div class="d-flex justify-content-between">
+              <p class="card-text">
+                <span style="color: #af2220;">Adi Hardwares</span> <%= imgObj.caption %>. Click on Whatsapp icon to know more and chat with company about the product. 
+              </p>
+        
+              <a
+                href="https://wa.me/send?phone=917838898930&text=Hi%21%0A%20I%20want%20to%20enquire%20about%20your%20product%0A%20Category%3A%20<%= encodeURIComponent(formattedCategory.name) %>%0A%20SubCategory%3A%20<%= encodeURIComponent(subformattedCategory.name) %>%0A%20SubSubcategory%3A%20<%= encodeURIComponent(subSubformattedCategory.name) %>%0A%20Item%3A%20<%= encodeURIComponent(imgObj.caption) %>%0A<%= encodeURIComponent(imgObj.url) %>"
+                class="whatsapp-link"
+              >
+                <i class="fab fa-whatsapp fa-2x"></i>
+              </a>
+            </div>
+           
+          </div>
+          </div>
+      
+          </div>
+          <% } %>
+          </div>
+          </div>
+      <% } %>
+      
+      <% } %>
+      <% } %>
+      <% } %>
+      <% } %>
+    </div>
+      <% } %>
+     
+   
 <!-- modal code -->
-<div class="modal fade" id="modalId">
+<!-- <div class="modal fade" id="modalId">
   <div class="modal-dialog bg-success custom-modal-content">
     <div class="modal-content">
-      <!-- style="transform: scaleX(1.4)"> -->
       <div class="modal-header pb-2">
         <h1 class="font-weight-light ml-4">Description</h1>
         <button
@@ -313,49 +289,50 @@
       </div>
     </div>
   </div>
-</div>
+</div>   -->
+  
 <script>
   // JavaScript code to handle the modal close event
-  document.addEventListener("DOMContentLoaded", function () {
-    var myModal = new bootstrap.Modal(document.getElementById("modalId"));
+  // document.addEventListener("DOMContentLoaded", function () {
+  //   var myModal = new bootstrap.Modal(document.getElementById("modalId"));
 
-    document.querySelectorAll(".card-link").forEach(function (link) {
-      link.addEventListener("click", function (event) {
-        event.preventDefault();
+  //   document.querySelectorAll(".card-link").forEach(function (link) {
+  //     link.addEventListener("click", function (event) {
+  //       event.preventDefault();
 
-        // Extract data from the clicked card
-        var card = event.target.closest(".card");
-        var imageSrc = card.querySelector(".card-img-top").getAttribute("src");
-        var productName = card.querySelector(".card-title").textContent;
-        var productDesc = card.querySelector(".card-text").textContent;
-        var productPrice = card.querySelector(".text-success").textContent;
+  //       // Extract data from the clicked card
+  //       var card = event.target.closest(".card");
+  //       var imageSrc = card.querySelector(".card-img-top").getAttribute("src");
+  //       var productName = card.querySelector(".card-title").textContent;
+  //       var productDesc = card.querySelector(".card-text").textContent;
+  //       var productPrice = card.querySelector(".text-success").textContent;
 
-        // Update modal content
-        var modalImg = document.querySelector(".modal-content .col-md-6 img");
-        var modalProductName = document.querySelector(
-          ".modal-content .product_name"
-        );
-        var modalProductDesc = document.querySelector(
-          ".modal-content .product_desc"
-        );
-        var modalProductPrice = document.querySelector(
-          ".modal-content .product_price"
-        );
+  //       // Update modal content
+  //       var modalImg = document.querySelector(".modal-content .col-md-6 img");
+  //       var modalProductName = document.querySelector(
+  //         ".modal-content .product_name"
+  //       );
+  //       var modalProductDesc = document.querySelector(
+  //         ".modal-content .product_desc"
+  //       );
+  //       var modalProductPrice = document.querySelector(
+  //         ".modal-content .product_price"
+  //       );
 
-        modalImg.setAttribute("src", imageSrc);
-        modalProductName.textContent = productName;
-        modalProductDesc.textContent = productDesc;
-        modalProductPrice.textContent = productPrice;
+  //       modalImg.setAttribute("src", imageSrc);
+  //       modalProductName.textContent = productName;
+  //       modalProductDesc.textContent = productDesc;
+  //       modalProductPrice.textContent = productPrice;
 
-        myModal.show();
-      });
-    });
+  //       myModal.show();
+  //     });
+  //   });
 
-    // Add event listener for the custom close button
-    document
-      .querySelector(".custom-close-btn")
-      .addEventListener("click", function () {
-        myModal.hide();
-      });
-  });
+  //   // Add event listener for the custom close button
+  //   document
+  //     .querySelector(".custom-close-btn")
+  //     .addEventListener("click", function () {
+  //       myModal.hide();
+  //     });
+  // });
 </script>

@@ -97,6 +97,10 @@ exports.addProduct = catchAsyncErrors(async (req, res, next) => {
             name: categoryName,
             subcategories: [],
           });
+          // subcategory2 = await Subcategory.findOne({name: subcategoryName});
+          // if (!subcategory2){
+
+          // }
         }
         const imageUrls2 = directLinks.map((url) => ({
           url,

@@ -52,6 +52,7 @@ nav .wrapper{
 }
 .wrapper .logo a h3{
   padding-left: 10px;
+  cursor: pointer;
 }
 .wrapper .nav-links{
   display: inline-flex;
@@ -125,12 +126,13 @@ nav .wrapper{
 .content .row img{
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit:cover;
 }
 .content .row header{
   color: #010101;
   font-size: 20px;
   font-weight: 500;
+  width: max-content;
 }
 .content .row .mega-links{
   margin-left: -40px;
@@ -145,6 +147,7 @@ nav .wrapper{
   color: #010101;
   font-size: 17px;
   display: block;
+  width: max-content;
 }
 .row .mega-links li a:hover{
   color: #010101;
@@ -280,6 +283,7 @@ nav .wrapper{
   }
   .content .row header{
     font-size: 19px;
+    width: max-content;
   }
 }
 

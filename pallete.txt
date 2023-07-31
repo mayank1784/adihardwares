@@ -3,80 +3,397 @@
 #010101
 #AF2220
 
-try {
-    if (categoryName) {
-      if (!subcategoryName) {
-        // Case 1: Create category with its name and images
-
-        const imageUrls = directLinks.map((url) => ({
-          url,
-          caption: returnCaption(categoryName), // Replace this with the common caption you want to use for all images
-        }));
-        const images = await Image.create({ imageUrl: imageUrls });
-
-        const category = await Category.create({
-          name: categoryName,
-          images: images._id,
-          subcategories: [],
-        });
-      } else if (subcategoryName && !subsubcategoryName) {
-        // Case 2: Create category, link created subcategory, and link created images with that subcategory
-        const imageUrls = directLinks.map((url) => ({
-          url,
-          caption: returnCaption(subcategoryName), // Replace this with the common caption you want to use for all images
-        }));
-        const images = await Image.create({ imageUrl: imageUrls });
-        const subcategory = await Subcategory.create({
-          name: subcategoryName,
-          images: images._id,
-        });
-
-        // Find the category based on the categoryName
-        let category;
-        category = await Category.findOne({ name: categoryName });
-        if (category === null) {
-          category = await Category.create({ name: categoryName });
-        }
-        // Add the subcategory ID to the category's subcategories array
-        category.subcategories.push(subcategory._id);
-        await category.save();
-      } else if (subcategoryName && subsubcategoryName) {
-        // Case 3: Create category, link created subcategory, link created subsubcategory, and link created images with that subsubcategory
-        const imageUrls = directLinks.map((url) => ({
-          url,
-          caption: returnCaption(subsubcategoryName), // Replace this with the common caption you want to use for all images
-        }));
-        const images = await Image.create({ imageUrl: imageUrls });
-        const subsubcategory = await SubSubcategory.create({
-          name: subsubcategoryName,
-          images: images._id,
-        });
-        let subcategory;
-        subcategory = await Subcategory.findOne({
-          name: subcategoryName,
-        });
-        if (subcategory === null) {
-          subcategory = await Subcategory.create({ name: subcategoryName });
-        }
-
-        // Add the subsubcategory ID to the subcategory's subsubcategories array
-        subcategory.subsubcategories.push(subsubcategory._id);
-        await subcategory.save();
-        let category;
-        category = await Category.findOne({ name: categoryName });
-        if (category === null) {
-          category = await Category.create({ name: categoryName });
-        }
-        // Add the subcategory ID to the category's subcategories array
-        category.subcategories.push(subcategory._id);
-        await category.save();
-      }
-    } else {
-      return next(new ErrorHandler("Category name is required", 500));
-    }
-    console.log("Data saved successfully");
-    res.status(200).redirect("/api/v1/addProduct");
-  } catch (err) {
-    throw next(err);
+<style>
+  .card:hover {
+    box-shadow: 20px 20px 80px -44px #de2025;
+    transition: 0.5s ease-in-out;
+    cursor: pointer;
   }
-});
+  .custom-modal-content {
+    max-width: 800px; /* Adjust the maximum width as needed */
+    margin: 0 auto; /* Center the modal horizontally */
+  }
+.card-link{
+  color: #de2025;
+}
+.card-link:hover{
+  text-decoration: underline !important;
+}
+  .custom-close-btn {
+    font-size: 2rem;
+    color: #af2220;
+    opacity: 0.7;
+    background-color: #fff; /* New background color */
+    border: none; /* Remove border */
+    outline: none; /* Remove outline on focus */
+    padding: 0; /* Remove default padding */
+    width: 30px; /* Adjust button width */
+    height: 30px; /* Adjust button height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* Circular shape */
+  }
+  .custom-close-btn:hover {
+    opacity: 1;
+  }
+  .card .img-container {
+    position: relative;
+    overflow: hidden;
+    height: 300px; /* Adjust this value as needed to set the desired height */
+  }
+
+  .card .img-container img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+
+  .card .img-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: inherit;
+    filter: blur(10px); /* Adjust the blur amount as needed */
+    z-index: -1;
+  }
+  .whatsapp-link {
+    color: #25d366; /* WhatsApp green color */
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Optional: Add padding between the icon and text */
+  .whatsapp-link i {
+    margin-right: 5px;
+  }
+</style>
+<div class="container mt-5">
+  <h1 class="text-center font-weight-normal"></h1>
+  <div class="container mt-4 d-flex mb-5">
+    <div class="row">
+      <div class="col-md-4 mt-5">
+        <div class="card">
+          <div class="img-container">
+            <img src="images/work-3.jpg" alt="" class="card-img-top w-100" />
+          </div>
+          <div class="card-body">
+            <h2 class="card-title">Sony</h2>
+            <div class="d-flex justify-content-between">
+              <p class="card-text">
+                sdjbdh dsjfbdhufbd fdhfhiufes fdsjhfgdhsf dhgdfh dshgs
+              </p>
+              <a
+                href="https://api.whatsapp.com/send?phone=917838898930&text=Hi%21%20I%20want%20to%20enquire%20about%20your%20products"
+                class="whatsapp-link"
+              >
+                <i class="fab fa-whatsapp fa-2x"></i>
+              </a>
+            </div>
+            <a
+              href="#"
+              class="card-link"
+              data-toggle="modal"
+              data-target="#modalId"
+              >More</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mt-5">
+        <div class="card">
+          <div class="img-container">
+            <img src="images/work-3.jpg" alt="" class="card-img-top w-100" />
+          </div>
+          <div class="card-body">
+            <h2 class="card-title">Sony</h2>
+            <div class="d-flex justify-content-between">
+              <p class="card-text">
+                sdjbdh dsjfbdhufbd fdhfhiufes fdsjhfgdhsf dhgdfh dshgs
+              </p>
+              <a
+                href="https://api.whatsapp.com/send?phone=917838898930&text=Hi%21%20I%20want%20to%20enquire%20about%20your%20products"
+                class="whatsapp-link"
+              >
+                <i class="fab fa-whatsapp fa-2x"></i>
+              </a>
+            </div>
+            <a
+              href="#"
+              class="card-link"
+              data-toggle="modal"
+              data-target="#modalId"
+              >More</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mt-5">
+        <div class="card">
+          <div class="img-container">
+            <img src="images/work-2.jpg" alt="" class="card-img-top w-100" />
+          </div>
+          <div class="card-body">
+            <h2 class="card-title">Sony</h2>
+            <div class="d-flex justify-content-between">
+              <p class="card-text">
+                sdjbdh dsjfbdhufbd fdhfhiufes fdsjhfgdhsf dhgdfh dshgs
+              </p>
+              <a
+                href="https://api.whatsapp.com/send?phone=917838898930&text=Hi%21%20I%20want%20to%20enquire%20about%20your%20products"
+                class="whatsapp-link"
+              >
+                <i class="fab fa-whatsapp fa-2x"></i>
+              </a>
+            </div>
+            <a
+              href="#"
+              class="card-link"
+              data-toggle="modal"
+              data-target="#modalId"
+              >More</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mt-5">
+        <div class="card">
+          <div class="img-container">
+            <img src="images/work-4.jpg" alt="" class="card-img-top w-100" />
+          </div>
+          <div class="card-body">
+            <h2 class="card-title">Sony</h2>
+            <div class="d-flex justify-content-between">
+              <p class="card-text">
+                sdjbdh dsjfbdhufbd fdhfhiufes fdsjhfgdhsf dhgdfh dshgs
+              </p>
+              <a
+                href="https://api.whatsapp.com/send?phone=917838898930&text=Hi%21%20I%20want%20to%20enquire%20about%20your%20products"
+                class="whatsapp-link"
+              >
+                <i class="fab fa-whatsapp fa-2x"></i>
+              </a>
+            </div>
+            <a
+              href="#"
+              class="card-link"
+              data-toggle="modal"
+              data-target="#modalId"
+              >More</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mt-5">
+        <div class="card">
+          <div class="img-container">
+            <img src="images/work-5.jpg" alt="" class="card-img-top w-100" />
+          </div>
+          <div class="card-body">
+            <h2 class="card-title">Sony</h2>
+            <div class="d-flex justify-content-between">
+              <p class="card-text">
+                sdjbdh dsjfbdhufbd fdhfhiufes fdsjhfgdhsf dhgdfh dshgs
+              </p>
+              <a
+                href="https://api.whatsapp.com/send?phone=917838898930&text=Hi%21%20I%20want%20to%20enquire%20about%20your%20products"
+                class="whatsapp-link"
+              >
+                <i class="fab fa-whatsapp fa-2x"></i>
+              </a>
+            </div>
+            <a
+              href="#"
+              class="card-link"
+              data-toggle="modal"
+              data-target="#modalId"
+              >More</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mt-5">
+        <div class="card">
+          <div class="img-container">
+            <img src="images/work-6.jpg" alt="" class="card-img-top w-100" />
+          </div>
+          <div class="card-body">
+            <h2 class="card-title">Sony</h2>
+            <div class="d-flex justify-content-between">
+              <p class="card-text">
+                sdjbdh dsjfbdhufbd fdhfhiufes fdsjhfgdhsf dhgdfh dshgs
+              </p>
+              <a
+                href="https://api.whatsapp.com/send?phone=917838898930&text=Hi%21%20I%20want%20to%20enquire%20about%20your%20products"
+                class="whatsapp-link"
+              >
+                <i class="fab fa-whatsapp fa-2x"></i>
+              </a>
+            </div>
+            <a
+              href="#"
+              class="card-link"
+              data-toggle="modal"
+              data-target="#modalId"
+              >More</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mt-5">
+        <div class="card">
+          <div class="img-container">
+            <img src="images/work-1.jpg" alt="" class="card-img-top w-100" />
+          </div>
+          <div class="card-body">
+            <h2 class="card-title">Sony</h2>
+            <div class="d-flex justify-content-between">
+              <p class="card-text">
+                sdjbdh dsjfbdhufbd fdhfhiufes fdsjhfgdhsf dhgdfh dshgs
+              </p>
+              <a
+                href="https://api.whatsapp.com/send?phone=917838898930&text=Hi%21%20I%20want%20to%20enquire%20about%20your%20products"
+                class="whatsapp-link"
+              >
+                <i class="fab fa-whatsapp fa-2x"></i>
+              </a>
+            </div>
+            <a
+              href="#"
+              class="card-link"
+              data-toggle="modal"
+              data-target="#modalId"
+              >More</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- modal code -->
+<div class="modal fade" id="modalId">
+  <div class="modal-dialog bg-success custom-modal-content">
+    <div class="modal-content">
+      <div class="modal-header pb-2">
+        <h1 class="font-weight-light ml-4">Description</h1>
+        <button
+          type="button"
+          class="close custom-close-btn"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row mt-2 p-3">
+          <div class="col-md-6">
+            <img src="" alt="" width="100%" height="280px" class="rounded" />
+          </div>
+          <div class="col-md-6">
+            <h2 class="product_name"></h2>
+            <p class="product_desc" style="box-sizing: border-box">
+              dgsuagd asygsygdcs dsajdgsd djgsidgs dsadgsudg syudgsd awdgsd
+            </p>
+            <p>
+              Review: &nbsp;&nbsp;&nbsp;&nbsp;
+              <i class="fa fa-star text-warning ml-2"></i>
+              <i class="fa fa-star text-warning ml-2"></i>
+              <i class="fa fa-star text-warning ml-2"></i>
+              <i class="fa fa-star text-warning ml-2"></i>
+              <i class="fa fa-star ml-2"></i>
+            </p>
+            <h4 class="product_price"></h4>
+            <button class="btn btn-success mt-2" style="width: 150px">
+              Add to cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% if (formattedCategory) { %>
+  
+  <h1><%= formattedCategory.name %></h1>
+  <% if (formattedCategory.images!==undefined && (!formattedCategory.subcategories || formattedCategory.subcategories.length === 0)) { %>
+    
+      <% for (const imgObj of formattedCategory.images.imageUrl) { %>
+        <img src="<%= imgObj.url %>" alt="<%= imgObj.caption %>">
+      <% } %>
+      
+      <% } else if (formattedCategory.subcategories!==undefined && formattedCategory.subcategories.length > 0) { %>
+        <% for (const subformattedCategory of formattedCategory.subcategories) { %>
+          <h2 id="<%= subformattedCategory.name %>"><%= subformattedCategory.name %></h2>
+          <% if (subformattedCategory.images!==undefined && (!subformattedCategory.subSubcategories || subformattedCategory.subSubcategories.length === 0)) { %>
+           
+            
+              <% for (const imgObj of subformattedCategory.images.imageUrl) { %>
+                <img src="<%= imgObj.url %>" alt="<%= imgObj.caption %>">
+                <% } %>
+            
+            <% } else if (subformattedCategory.subSubcategories!==undefined && subformattedCategory.subSubcategories.length > 0) { %>
+              <% for (const subSubformattedCategory of subformattedCategory.subSubcategories) { %>
+                <h3><%= subSubformattedCategory.name %></h3>
+                <% if (subSubformattedCategory.images!==undefined) { %>
+                  <% for (const image of subSubformattedCategory.images.imageUrl) { %>
+                    
+                    <img src="<%= image.url %>" alt="<%= image.caption %>">
+              
+            <% } %>
+          <% } %>
+        <% } %>
+      <% } %>
+    <% } %>
+  <% } %>
+  <% } %>
+<script>
+  // JavaScript code to handle the modal close event
+  document.addEventListener("DOMContentLoaded", function () {
+    var myModal = new bootstrap.Modal(document.getElementById("modalId"));
+
+    document.querySelectorAll(".card-link").forEach(function (link) {
+      link.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        // Extract data from the clicked card
+        var card = event.target.closest(".card");
+        var imageSrc = card.querySelector(".card-img-top").getAttribute("src");
+        var productName = card.querySelector(".card-title").textContent;
+        var productDesc = card.querySelector(".card-text").textContent;
+        var productPrice = card.querySelector(".text-success").textContent;
+
+        // Update modal content
+        var modalImg = document.querySelector(".modal-content .col-md-6 img");
+        var modalProductName = document.querySelector(
+          ".modal-content .product_name"
+        );
+        var modalProductDesc = document.querySelector(
+          ".modal-content .product_desc"
+        );
+        var modalProductPrice = document.querySelector(
+          ".modal-content .product_price"
+        );
+
+        modalImg.setAttribute("src", imageSrc);
+        modalProductName.textContent = productName;
+        modalProductDesc.textContent = productDesc;
+        modalProductPrice.textContent = productPrice;
+
+        myModal.show();
+      });
+    });
+
+    // Add event listener for the custom close button
+    document
+      .querySelector(".custom-close-btn")
+      .addEventListener("click", function () {
+        myModal.hide();
+      });
+  });
+</script>
