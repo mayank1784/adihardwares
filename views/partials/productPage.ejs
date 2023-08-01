@@ -1,4 +1,5 @@
 <style>
+
   .card:hover {
     box-shadow: 20px 20px 80px -44px #de2025;
     transition: 0.5s ease-in-out;
@@ -120,8 +121,14 @@
     }
     @media (max-width: 767px) {
       .aaloo .container-bg img{
-        height: 100px;
+        height: 125px;
       }
+      .aaloo .text-overlay h1 {
+    font-size: 20px; /* You can adjust the font size as needed for smaller screens */
+  }
+  .aaloo .text-overlay h6{
+    font-size: 10px;
+  }
     }
 </style>
 <% if (formattedCategory) { %>
@@ -245,94 +252,3 @@
       <% } %>
     </div>
       <% } %>
-     
-   
-<!-- modal code -->
-<!-- <div class="modal fade" id="modalId">
-  <div class="modal-dialog bg-success custom-modal-content">
-    <div class="modal-content">
-      <div class="modal-header pb-2">
-        <h1 class="font-weight-light ml-4">Description</h1>
-        <button
-          type="button"
-          class="close custom-close-btn"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row mt-2 p-3">
-          <div class="col-md-6">
-            <img src="" alt="" width="100%" height="280px" class="rounded" />
-          </div>
-          <div class="col-md-6">
-            <h2 class="product_name"></h2>
-            <p class="product_desc" style="box-sizing: border-box">
-              dgsuagd asygsygdcs dsajdgsd djgsidgs dsadgsudg syudgsd awdgsd
-            </p>
-            <p>
-              Review: &nbsp;&nbsp;&nbsp;&nbsp;
-              <i class="fa fa-star text-warning ml-2"></i>
-              <i class="fa fa-star text-warning ml-2"></i>
-              <i class="fa fa-star text-warning ml-2"></i>
-              <i class="fa fa-star text-warning ml-2"></i>
-              <i class="fa fa-star ml-2"></i>
-            </p>
-            <h4 class="product_price"></h4>
-            <button class="btn btn-success mt-2" style="width: 150px">
-              Add to cart
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>   -->
-  
-<script>
-  // JavaScript code to handle the modal close event
-  // document.addEventListener("DOMContentLoaded", function () {
-  //   var myModal = new bootstrap.Modal(document.getElementById("modalId"));
-
-  //   document.querySelectorAll(".card-link").forEach(function (link) {
-  //     link.addEventListener("click", function (event) {
-  //       event.preventDefault();
-
-  //       // Extract data from the clicked card
-  //       var card = event.target.closest(".card");
-  //       var imageSrc = card.querySelector(".card-img-top").getAttribute("src");
-  //       var productName = card.querySelector(".card-title").textContent;
-  //       var productDesc = card.querySelector(".card-text").textContent;
-  //       var productPrice = card.querySelector(".text-success").textContent;
-
-  //       // Update modal content
-  //       var modalImg = document.querySelector(".modal-content .col-md-6 img");
-  //       var modalProductName = document.querySelector(
-  //         ".modal-content .product_name"
-  //       );
-  //       var modalProductDesc = document.querySelector(
-  //         ".modal-content .product_desc"
-  //       );
-  //       var modalProductPrice = document.querySelector(
-  //         ".modal-content .product_price"
-  //       );
-
-  //       modalImg.setAttribute("src", imageSrc);
-  //       modalProductName.textContent = productName;
-  //       modalProductDesc.textContent = productDesc;
-  //       modalProductPrice.textContent = productPrice;
-
-  //       myModal.show();
-  //     });
-  //   });
-
-  //   // Add event listener for the custom close button
-  //   document
-  //     .querySelector(".custom-close-btn")
-  //     .addEventListener("click", function () {
-  //       myModal.hide();
-  //     });
-  // });
-</script>

@@ -87,7 +87,7 @@ exports.renderProducts = catchAsyncErrors(async (req, res, next) => {
 
     console.log("foundcategory: ", foundCategory);
     if (!foundCategory) {
-      return res.status(404).json({ message: "Category not found" });
+      return res.render("notFound");
     }
     console.log("aaloo");
     // Convert category names, subcategory names, and subsubcategory names to title case
