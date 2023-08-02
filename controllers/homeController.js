@@ -6,7 +6,7 @@ const SubSubcategory = require("../models/subSubcategorySchema");
 const Image = require("../models/imageSchema");
 var _ = require("lodash");
 
-exports.renderHome = catchAsyncErrors(async (req, res) => {
+exports.renderHome = catchAsyncErrors(async (req, res,next) => {
   try {
     const findCategories = await Category.find().populate({
       path: "subcategories",
