@@ -2,7 +2,7 @@
 #FFFFFF
 #010101
 #AF2220
-
+"mongodb+srv://adihardwares:AdiHad%402020@cluster0.y4k0df3.mongodb.net/Adihardwares?retryWrites=true&w=majority"
 <style>
   .card:hover {
     box-shadow: 20px 20px 80px -44px #de2025;

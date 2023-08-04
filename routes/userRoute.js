@@ -29,7 +29,14 @@ router
     upload.single("image"),
     registerUser
   ).get(isAuthenticatedUser,authorizedRoles("admin"),renderRegisterationForm);
-router.route("/login").post(loginUser).get(getLoginForm);
+  // router
+  // .route("/admin/registerUser")
+  // .post(
+  //   upload.single("image"),
+  //   registerUser
+  // ).get(renderRegisterationForm);
+
+  router.route("/login").post(loginUser).get(getLoginForm);
 router.route("/logout").get(logout);
 router.route("/password/forgot").post(forgotPassword);
 router.route("/users/resetPassword/:token").put(resetPassword);
