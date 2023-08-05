@@ -2,3 +2,4 @@
 .env
 /.dist
 /Website
+package-lock.json
