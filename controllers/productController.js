@@ -214,7 +214,7 @@ exports.renderForm = async(req, res, next) => {
       categoryData,
       subcategoryData,
       subsubcategoryData,
-    
+    user: req.user
     });
   } catch (err) {
     console.error("Error fetching data:", err);

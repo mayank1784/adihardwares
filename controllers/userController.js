@@ -33,10 +33,7 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
 
   // Save the new user object to the database
   await newUser.save();
-  res.status(200).json({
-    success: true,
-    message: "User registered successfully",
-  });
+  res.status(200).redirect("/api/v1/addProduct");
 });
 
 exports.loginUser = catchAsyncErrors(async (req, res, next) => {
@@ -70,10 +67,7 @@ exports.logout = catchAsyncErrors(async (req, res, next) => {
     expires: new Date(Date.now()),
     httpOnly: true,
   });
-  res.status(200).json({
-    success: true,
-    message: "Logged Out",
-  });
+  res.status(200).redirect("/");
 });
 
 //Forgot Password

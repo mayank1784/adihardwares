@@ -10,11 +10,12 @@ const sendToken = function (user, statusCode, res) {
     ),
     httpOnly: true,
   };
-  res.status(statusCode).cookie("token", token, options).json({
-    success: true,
-    user,
-    token,
-  });
+  res.status(statusCode).cookie("token", token, options).redirect("/api/v1/addProduct");
+  // .json({
+  //   success: true,
+  //   user,
+  //   token,
+  //});
 };
 
 module.exports = sendToken;
