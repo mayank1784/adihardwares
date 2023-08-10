@@ -116,7 +116,7 @@
   <body>
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/api/v1/addProduct"><img src="<%= user.image %>" alt="Logo" width="50" height="50" class="d-inline-block align-text-top profile-photo"><%= user.name %></a>
+          <a class="navbar-brand" href="/api/v1/addProduct"><img src="<%= user.image %>" alt="Logo" width="50" height="50" class="d-inline-block align-text-top profile-photo"><%= user.name.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) %></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon" style="background-color: #010101;"></span>
           </button>
