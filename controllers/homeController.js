@@ -33,7 +33,7 @@ exports.renderHome = catchAsyncErrors(async (req, res,next) => {
       categories: categories,
     });
   } catch (err) {
-    console.error("An error occurred:", error);
+    console.error("An error occurred:", err);
     // return next(new ErrorHandler("Internal Server error", 500));
   }
 });
