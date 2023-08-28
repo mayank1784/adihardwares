@@ -18,7 +18,8 @@
         <a href="#" class="desktop-item">Our Products</a>
         <input type="checkbox" id="showMega" />
         <label for="showMega" class="mobile-item">Our Products</label>
-        <div class="mega-box">
+        
+        <div class="mega-box" id = "showMegas">
           <div class="content">
             <div class="row">
               <img src="../images/navimg.png" alt="" />
@@ -48,3 +49,12 @@
     ></label>
   </div>
 </nav>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+  // Check if the .mega-box element exists
+  var megaBox = document.getElementById("showMegas");
+  if (megaBox) {
+    megaBox.style.maxHeight = "100%"; // Set max-height to 100% to show it by default
+  }
+});
+</script>

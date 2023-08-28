@@ -223,7 +223,7 @@ nav .wrapper{
     transition: all 0.3s ease;
   }
   #showDrop:checked ~ .drop-menu,
-  #showMega:checked ~ .mega-box{
+  #showMega{
     max-height: 100%;
   }
   .nav-links .desktop-item{
