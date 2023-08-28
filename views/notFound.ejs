@@ -8,6 +8,15 @@
     }
 </style>
 <%- include('partials/upperLayout',{ title: "ADI - Not Found" }); %>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WCWLZW2QY9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-WCWLZW2QY9');
+</script>
 <a href="/"><h1 class="text-center font-weight-bold" style="margin-top: 25px;"> <img src="../images/logo.png" alt="logo" style="display: inline-block; height: 50px; width: 100px;">Adi Hardwares </h1></a>
 <div class="notfound"><h3>Page Not Found ...</h3></div>
 <%- include('partials/footer'); %> 
