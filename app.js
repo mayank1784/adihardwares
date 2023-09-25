@@ -10,7 +10,15 @@ const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 const connectDatabase = require("./config/database");
 
-connectDatabase();
+connectDatabase()
+  .then(() => {
+    app.listen(process.env.PORT || 3000, () => {
+      console.log(`Server is running on port ${process.env.PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 //handling Uncaught exception
 process.on("uncaughtException", (err) => {
   console.log(`Error: ${err.message}`);
@@ -40,9 +48,9 @@ app.use("/api/v1",user);
 app.use("/api/v1",product);
 
 
-app.listen(process.env.PORT || 3000, (req, res) => {
-  console.log(`Server is running on port ${process.env.PORT}`);
-});
+// app.listen(process.env.PORT || 3000, (req, res) => {
+//   console.log(`Server is running on port ${process.env.PORT}`);
+// });
 //Unhandled promise rejection
 process.on("unhandledRejection", (err) => {
   console.log(`Error: ${err.message}`);
