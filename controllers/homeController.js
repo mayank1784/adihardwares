@@ -38,7 +38,9 @@ exports.renderHome = catchAsyncErrors(async (req, res,next) => {
   }
 });
 exports.renderProducts = catchAsyncErrors(async (req, res, next) => {
-  categoryName = _.toLower(req.params.category);
+  const categoryName = _.toLower(req.params.category);
+  // const subcategory = _.toLower(req.params.subcategory);
+  // console.log("subcategory in param", subcategory);
   let categories;
   try {
     const findCategories = await Category.find().populate({
@@ -86,7 +88,7 @@ exports.renderProducts = catchAsyncErrors(async (req, res, next) => {
   .populate("images")
   .exec();
 
-    console.log("foundcategory: ", foundCategory);
+    // console.log("foundcategory: ", foundCategory);
     if (!foundCategory) {
       return res.render("notFound");
     }
