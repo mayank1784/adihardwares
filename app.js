@@ -30,6 +30,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 app.set("view engine", "ejs");
+app.set('views', path.join(__dirname, 'views'));
 app.use(bodyParser.urlencoded({ extended: true }));
 // Middleware to parse JSON data
 app.use(express.json());
