@@ -30,7 +30,7 @@
                 <ul class="mega-links">
                   <% if (category.subcategories.length > 0) { %>
                     <% category.subcategories.forEach(subcategory => { %>
-                      <li><a href="/search/<%= encodeURIComponent(category.name) %>/#<%= encodeURIComponent(subcategory.name.toLowerCase()) %>"><%= subcategory.name %></a></li>
+                      <li><a href="/search/<%= encodeURIComponent(category.name) %>"><%= subcategory.name %></a></li>
                       <% }) %>
                       <% } else { %>
                       <li><a href="/search/<%= encodeURIComponent(category.name) %>">Coming Soon...</a></li>

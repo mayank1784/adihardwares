@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const errorMiddleware = require("./middlewares/error");
 const ejs = require("ejs");
 const multer = require("multer");
+const path = require('path');
 const app = express();
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
@@ -30,12 +31,13 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 app.set("view engine", "ejs");
+app.set('views', path.join(__dirname, 'views'));
 app.use(bodyParser.urlencoded({ extended: true }));
 // Middleware to parse JSON data
 app.use(express.json());
 
 // Middleware to serve static files
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname,"public")));
 
 //Routes Imports
 const user = require("./routes/userRoute");

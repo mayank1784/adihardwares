@@ -8,4 +8,5 @@ router.route("/search/:category").get(homeController.renderProducts);
 
 
 
+
 module.exports = router;

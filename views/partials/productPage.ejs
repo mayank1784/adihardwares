@@ -119,6 +119,24 @@
     .container.mt-5 h3{
       color: #af2220;
     }
+   .whatsapp-link button{
+    align-items: center;
+    padding: 5px 5px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 10px;
+    justify-content: space-between;
+    color: white;
+    background-color: #de2025;
+    cursor: pointer;
+   }
+   .whatsapp-link button i{
+    color: white;
+    font-size: 18px;
+   }
+   .whatsapp-link button:hover{
+    background-color: #af2220;
+   }
     @media (max-width: 767px) {
       .aaloo .container-bg img{
         height: 125px;
@@ -193,15 +211,21 @@
                     <h5 class="card-title"><%= imgObj.caption.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) %></h5>
                     <div class="d-flex justify-content-between">
                       <p class="card-text">
-                        <span style="color: #af2220;">Adi Hardwares</span> <%= imgObj.caption %>. Click on Whatsapp icon to know more and chat with company about the product.
+                        <span style="color: #af2220;">Adi Hardwares</span> <%= imgObj.caption %>. Click to chat directly with Adi Hardwares about the product 👇
                       </p>
-                      <a
+                      <!-- <a
                         href="https://api.whatsapp.com/send?phone=917838898930&text=Hi%21%0A%20I%20want%20to%20enquire%20about%20your%20product%0A%20Category%3A%20<%= encodeURIComponent(formattedCategory.name) %>%0A%20SubCategory%3A%20<%= encodeURIComponent(subformattedCategory.name) %>%0A%20Item%3A%20<%= encodeURIComponent(imgObj.caption) %>%0A<%= encodeURIComponent(imgObj.url) %>"
                         class="whatsapp-link"
                       >
                         <i class="fab fa-whatsapp fa-2x"></i>
-                      </a>
+                      </a> -->
                     </div>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=917838898930&text=Hi%21%0A%20I%20want%20to%20enquire%20about%20your%20product%0A%20Category%3A%20<%= encodeURIComponent(formattedCategory.name) %>%0A%20SubCategory%3A%20<%= encodeURIComponent(subformattedCategory.name) %>%0A%20Item%3A%20<%= encodeURIComponent(imgObj.caption) %>%0A<%= encodeURIComponent(imgObj.url) %>"
+                        class="whatsapp-link"
+                      > <button>Click here <i class="fab fa-whatsapp fa-2x"></i></button>
+                
+                      </a>
                     
                   </div>
                 </div>
@@ -226,17 +250,21 @@
             <h5 class="card-title"><%= imgObj.caption.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) %></h5>
             <div class="d-flex justify-content-between">
               <p class="card-text">
-                <span style="color: #af2220;">Adi Hardwares</span> <%= imgObj.caption %>. Click on Whatsapp icon to know more and chat with company about the product. 
+                <span style="color: #af2220;">Adi Hardwares</span> <%= imgObj.caption %>. Click to chat directly with Adi Hardwares about the product 👇
               </p>
         
-              <a
+              <!-- <a
                 href="https://api.whatsapp.com/send?phone=917838898930&text=Hi%21%0A%20I%20want%20to%20enquire%20about%20your%20product%0A%20Category%3A%20<%= encodeURIComponent(formattedCategory.name) %>%0A%20SubCategory%3A%20<%= encodeURIComponent(subformattedCategory.name) %>%0A%20SubSubcategory%3A%20<%= encodeURIComponent(subSubformattedCategory.name) %>%0A%20Item%3A%20<%= encodeURIComponent(imgObj.caption) %>%0A<%= encodeURIComponent(imgObj.url) %>"
                 class="whatsapp-link"
               >
                 <i class="fab fa-whatsapp fa-2x"></i>
-              </a>
+              </a> -->
             </div>
-           
+            <a
+            href="https://api.whatsapp.com/send?phone=917838898930&text=Hi%21%0A%20I%20want%20to%20enquire%20about%20your%20product%0A%20Category%3A%20<%= encodeURIComponent(formattedCategory.name) %>%0A%20SubCategory%3A%20<%= encodeURIComponent(subformattedCategory.name) %>%0A%20SubSubcategory%3A%20<%= encodeURIComponent(subSubformattedCategory.name) %>%0A%20Item%3A%20<%= encodeURIComponent(imgObj.caption) %>%0A<%= encodeURIComponent(imgObj.url) %>"
+            class="whatsapp-link"
+          >
+           <button>Click here <i class="fab fa-whatsapp fa-2x"></i></button></a>
           </div>
           </div>
       
