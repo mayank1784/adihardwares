@@ -28,7 +28,7 @@ exports.renderHome = catchAsyncErrors(async (req, res,next) => {
         ),
       })),
     }));
-    res.render("home", {
+    res.render("../home", {
       title: "Adi Hardwares - Door Handles | Modular Kitchen | Hinges",
       categories: categories,
     });
