@@ -37,7 +37,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Middleware to serve static files
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname,"public")));
 
 //Routes Imports
 const user = require("./routes/userRoute");
