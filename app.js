@@ -45,7 +45,13 @@ const product = require("./routes/productRoute");
 const home = require("./routes/homeRoute");
 
 app.use("/",home);
+app.get('/AdiHardwares_Catalouge.pdf', (req, res) => {
+  // Set the Content-Type header
+  res.setHeader('Content-Type', 'application/pdf');
 
+  // Your logic to send the PDF file
+  res.sendFile(path.join(__dirname, 'public', 'AdiHardwares_Catalouge.pdf'));
+});
 app.use("/api/v1",user);
 app.use("/api/v1",product);
 
