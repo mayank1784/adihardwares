@@ -1,5 +1,6 @@
 const dotenv = require("dotenv");
 dotenv.config();
+const fs = require('fs');
 const express = require("express");
 const bodyParser = require("body-parser");
 const errorMiddleware = require("./middlewares/error");
@@ -46,11 +47,14 @@ const home = require("./routes/homeRoute");
 
 app.use("/",home);
 app.get('/AdiHardwares_Catalouge.pdf', (req, res) => {
+  const filePath = path.join(__dirname, 'public', 'AdiHardwares_Catalouge.pdf');
+  const readStream = fs.createReadStream(filePath);
+
   // Set the Content-Type header
   res.setHeader('Content-Type', 'application/pdf');
 
-  // Your logic to send the PDF file
-  res.sendFile(path.join(__dirname, 'public', 'AdiHardwares_Catalouge.pdf'));
+  // Stream the file to the response
+  readStream.pipe(res);
 });
 app.use("/api/v1",user);
 app.use("/api/v1",product);
