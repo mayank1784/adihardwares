@@ -18,30 +18,45 @@
         <a href="#" class="desktop-item">Our Products</a>
         <input type="checkbox" id="showMega" />
         <label for="showMega" class="mobile-item">Our Products</label>
-        
-        <div class="mega-box" id = "showMegas">
+
+        <div class="mega-box" id="showMegas">
           <div class="content">
             <div class="row">
               <img src="../images/navimg.png" alt="" />
             </div>
             <% categories.forEach(category => { %>
-              <div class="row">
-                <a href="/search/<%= encodeURIComponent(category.name) %>"><header><%= category.name %></header></a>
-                <ul class="mega-links">
-                  <% if (category.subcategories.length > 0) { %>
-                    <% category.subcategories.forEach(subcategory => { %>
-                      <li><a href="/search/<%= encodeURIComponent(category.name) %>"><%= subcategory.name %></a></li>
-                      <% }) %>
-                      <% } else { %>
-                      <li><a href="/search/<%= encodeURIComponent(category.name) %>">Coming Soon...</a></li>
-                    <% } %>  
-                    </ul>
-                      </div>
-                      <% }) %>
+            <div class="row">
+              <a href="/search/<%= encodeURIComponent(category.name) %>"
+                ><header><%= category.name %></header></a
+              >
+              <ul class="mega-links">
+                <% if (category.subcategories.length > 0) { %> <%
+                category.subcategories.forEach(subcategory => { %>
+                <li>
+                  <a href="/search/<%= encodeURIComponent(category.name) %>"
+                    ><%= subcategory.name %></a
+                  >
+                </li>
+                <% }) %> <% } else { %>
+                <li>
+                  <a href="/search/<%= encodeURIComponent(category.name) %>"
+                    >Coming Soon...</a
+                  >
+                </li>
+                <% } %>
+              </ul>
+            </div>
+            <% }) %>
           </div>
         </div>
       </li>
-      <li><a href="https://drive.google.com/file/d/1cgJy1h8dVHfeDgwh4LiDnxieziEkxmiD/view?usp=drive_link" target="_blank" >E-Catalouge</a></li>
+      <li>
+        <a
+          href="https://drive.google.com/file/d/1VMBHDydo3hkziu5YHl2bGT7XpykAsOvS/view"
+          target="_blank"
+          >E-Catalouge</a
+        >
+      </li>
       <li><a href="/api/v1/login">Login</a></li>
     </ul>
     <label for="menu-btn" class="btn menu-btn"
@@ -50,11 +65,11 @@
   </div>
 </nav>
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-  // Check if the .mega-box element exists
-  var megaBox = document.getElementById("showMegas");
-  if (megaBox) {
-    megaBox.style.maxHeight = "100%"; // Set max-height to 100% to show it by default
-  }
-});
+  document.addEventListener("DOMContentLoaded", function () {
+    // Check if the .mega-box element exists
+    var megaBox = document.getElementById("showMegas");
+    if (megaBox) {
+      megaBox.style.maxHeight = "100%"; // Set max-height to 100% to show it by default
+    }
+  });
 </script>
