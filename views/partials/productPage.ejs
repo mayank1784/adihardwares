@@ -172,7 +172,7 @@
       <div class="col-md-4 mt-5">
         <div class="card">
           <div class="img-container">
-            <img src="<%= imgObj.url %>" alt="<%= imgObj.caption %>" class="card-img-top w-100" />
+            <img src="<%= imgObj.url %>" alt="<%= imgObj.caption %>" class="card-img-top w-100" loading="lazy" />
           </div>
           <div class="card-body">
             <h5 class="card-title"><%= imgObj.caption %></h5>
@@ -209,7 +209,7 @@
               <div class="col-md-4 mt-5">
                 <div class="card">
                   <div class="img-container">
-                    <img src="<%= imgObj.url %>" alt="<%= imgObj.caption %>" class="card-img-top w-100" />
+                    <img src="<%= imgObj.url %>" alt="<%= imgObj.caption %>" class="card-img-top w-100" loading="lazy" />
                   </div>
                   <div class="card-body">
                     <h5 class="card-title"><%= imgObj.caption.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) %></h5>
@@ -248,7 +248,7 @@
           
         <div class="card">
           <div class="img-container">
-            <img src="<%= imgObj.url %>" alt="<%= imgObj.caption %>" class="card-img-top w-100" />
+            <img src="<%= imgObj.url %>" alt="<%= imgObj.caption %>" class="card-img-top w-100" loading="lazy" />
           </div>
           <div class="card-body">
             <h5 class="card-title"><%= imgObj.caption.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) %></h5>

@@ -6,28 +6,44 @@ const SubSubcategory = require("../models/subSubcategorySchema");
 const Image = require("../models/imageSchema");
 var _ = require("lodash");
 
+let cachedCategories = null;
+let lastCacheTime = 0;
+const CACHE_TTL = 1000 * 60 * 60; // 1 hour cache
+
+async function getNavbarCategories() {
+  const now = Date.now();
+  if (cachedCategories && (now - lastCacheTime < CACHE_TTL)) {
+    return cachedCategories;
+  }
+
+  const findCategories = await Category.find().populate({
+    path: "subcategories",
+    model: "Subcategory",
+    populate: {
+      path: "subSubcategories",
+      model: "SubSubcategory",
+    },
+  });
+
+  cachedCategories = findCategories.map((category) => ({
+    name: _.startCase(category.name),
+    subcategories: category.subcategories.map((subcategory) => ({
+      name: _.startCase(subcategory.name),
+      subSubcategories: subcategory.subSubcategories.map(
+        (subSubcategory) => ({
+          name: _.startCase(subSubcategory.name),
+        })
+      ),
+    })),
+  }));
+  
+  lastCacheTime = now;
+  return cachedCategories;
+}
+
 exports.renderHome = catchAsyncErrors(async (req, res,next) => {
   try {
-    const findCategories = await Category.find().populate({
-      path: "subcategories",
-      model: "Subcategory",
-      populate: {
-        path: "subSubcategories",
-        model: "SubSubcategory",
-      },
-    });
-    // Convert category names and subcategory names to title case
-    const categories = findCategories.map((category) => ({
-      name: _.startCase(category.name),
-      subcategories: category.subcategories.map((subcategory) => ({
-        name: _.startCase(subcategory.name),
-        subSubcategories: subcategory.subSubcategories.map(
-          (subSubcategory) => ({
-            name: _.startCase(subSubcategory.name),
-          })
-        ),
-      })),
-    }));
+    const categories = await getNavbarCategories();
     res.render("home", {
       title: "Adi Hardwares - Door Handles | Modular Kitchen | Hinges",
       categories: categories,
@@ -43,26 +59,7 @@ exports.renderProducts = catchAsyncErrors(async (req, res, next) => {
   // console.log("subcategory in param", subcategory);
   let categories;
   try {
-    const findCategories = await Category.find().populate({
-      path: "subcategories",
-      model: "Subcategory",
-      populate: {
-        path: "subSubcategories",
-        model: "SubSubcategory",
-      },
-    });
-    // Convert category names and subcategory names to title case
-    categories = findCategories.map((category) => ({
-      name: _.startCase(category.name),
-      subcategories: category.subcategories.map((subcategory) => ({
-        name: _.startCase(subcategory.name),
-        subSubcategories: subcategory.subSubcategories.map(
-          (subSubcategory) => ({
-            name: _.startCase(subSubcategory.name),
-          })
-        ),
-      })),
-    }));
+    const categories = await getNavbarCategories();
     // Find the category by name and populate its subcategories and their subsubcategories
     const foundCategory = await Category.findOne({ name: categoryName })
   .populate({

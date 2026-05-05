@@ -8,6 +8,7 @@
 
   gtag('config', 'G-WCWLZW2QY9');
 </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -408,10 +409,10 @@ function handleDropdownKeyboardNavigation(event) {
 
       // Function to enable/disable the input fields based on the hierarchy
       function toggleFormFields() {
-        const categoryName = categoryNameInput.value.trim();
-        const subcategoryName = subcategoryNameInput.value.trim();
-        const subsubcategoryName = subsubcategoryNameInput.value.trim();
-        const caption = captionInput.value.trim();
+        const categoryName = categoryNameInput ? categoryNameInput.value.trim() : '';
+        const subcategoryName = subcategoryNameInput ? subcategoryNameInput.value.trim() : '';
+        const subsubcategoryName = subsubcategoryNameInput ? subsubcategoryNameInput.value.trim() : '';
+        const caption = captionInput ? captionInput.value.trim() : '';
 
         // Disable subcategory and sub-subcategory fields if no category is provided
         if (categoryName === "") {
@@ -456,7 +457,98 @@ function handleDropdownKeyboardNavigation(event) {
       toggleFormFields();
       categoryNameInput.addEventListener("input", toggleFormFields);
       subcategoryNameInput.addEventListener("input", toggleFormFields);
-      selectedFiles.addEventListener("change", toggleFormFields);
+      // Wait, selectedFiles is an array, can't addEventListener. Using inputimages instead.
+      fileInput.addEventListener("change", toggleFormFields);
+
+      const imgbbApiKey = '<%= imgbbApiKey %>';
+      const form = document.getElementById('imageForm');
+      const submitBtn = document.getElementById('submitB');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        if (selectedFiles.length === 0) {
+          // If no files, we still want to proceed if allowed by backend, but the original required="required" on inputimages blocked it.
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+        try {
+          const directLinks = [];
+          
+          for (let i = 0; i < selectedFiles.length; i++) {
+            const file = selectedFiles[i];
+            
+            // 1. Compress Image
+            const options = {
+              maxSizeMB: 1, // Compress to max 1MB
+              maxWidthOrHeight: 1920,
+              useWebWorker: true
+            };
+            const compressedFile = await imageCompression(file, options);
+            
+            // 2. Upload to ImgBB
+            const formData = new FormData();
+            formData.append('image', compressedFile);
+            
+            // Remove parenthesis at end for name matching backend logic
+            const removeCharactersAtEnd = (str) => str.replace(/\(\d+\)$/, '');
+            const imageName = removeCharactersAtEnd(file.name.split(".")[0]);
+            formData.append('name', imageName);
+
+            const uploadRes = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, {
+              method: 'POST',
+              body: formData
+            });
+            
+            const uploadData = await uploadRes.json();
+            
+            if (uploadData.success) {
+              directLinks.push({
+                imageurl: uploadData.data.display_url,
+                imagename: imageName
+              });
+            } else {
+              throw new Error("Failed to upload image: " + file.name);
+            }
+          }
+
+          // 3. Submit to backend
+          const payload = {
+            categoryName: categoryNameInput.value.trim(),
+            subcategoryName: subcategoryNameInput.value.trim(),
+            subsubcategoryName: subsubcategoryNameInput.value.trim(),
+            caption: captionInput ? captionInput.value.trim() : undefined,
+            directLinks: directLinks
+          };
+
+          const response = await fetch('/api/v1/addProduct', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          });
+
+          if (response.redirected) {
+             window.location.href = response.url;
+          } else if (response.ok) {
+             window.location.href = '/api/v1/addProduct';
+          } else {
+             // Backend might redirect on success anyway, but if there's an error:
+             const text = await response.text();
+             throw new Error(text || "Failed to save product.");
+          }
+
+        } catch (error) {
+          console.error(error);
+          alert("Error: " + error.message);
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Submit';
+        }
+      });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   </body>

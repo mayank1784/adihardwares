@@ -25,33 +25,7 @@ exports.addProduct = catchAsyncErrors(async (req, res, next) => {
   const subsubcategoryName = lowerCaseIfNotEmpty(req.body.subsubcategoryName);
   const caption = lowerCaseIfNotEmpty(req.body.caption);
 
-  const imageBuffers = req.files.map((file) => file.buffer);
-  const imageNames = req.files.map((file) => file.originalname);
-
-  const directLinks = [];
-
-  for (let i = 0; i < imageBuffers.length; i++) {
-    const imageBuffer = imageBuffers[i];
-    const removeCharactersAtEnd = (str) => str.replace(/\(\d+\)$/, '');
-    const imageName = removeCharactersAtEnd(imageNames[i].split(".")[0]);
-    
-
-    try {
-      const options = {
-        apiKey: process.env.IMGBB_API, // Replace with your ImgBB API key
-        base64string: imageBuffer.toString("base64"),
-        name: imageName, // Replace with the desired image name
-      };
-      const response = await ImgbbUploader(options);
-      // console.log(response);
-      directLinks.push({
-        imageurl: response.display_url,
-        imagename: imageName,
-      });
-    } catch (error) {
-      throw next(error);
-    }
-  }
+  const directLinks = req.body.directLinks || [];
 
 
   try {
@@ -214,7 +188,8 @@ exports.renderForm = async(req, res, next) => {
       categoryData,
       subcategoryData,
       subsubcategoryData,
-    user: req.user
+      user: req.user,
+      imgbbApiKey: process.env.IMGBB_API
     });
   } catch (err) {
     console.error("Error fetching data:", err);

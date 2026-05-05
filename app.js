@@ -2,6 +2,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const fs = require('fs');
 const express = require("express");
+const compression = require("compression");
 const bodyParser = require("body-parser");
 const errorMiddleware = require("./middlewares/error");
 const ejs = require("ejs");
@@ -9,6 +10,7 @@ const multer = require("multer");
 const path = require('path');
 const app = express();
 const cookieParser = require("cookie-parser");
+app.use(compression());
 app.use(cookieParser());
 const connectDatabase = require("./config/database");
 

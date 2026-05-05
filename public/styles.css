@@ -43,10 +43,12 @@ nav .wrapper{
 }
 .wrapper .logo a img{
   vertical-align: middle;
-  height: 50px;
-  width: 100px;
+  height: 4rem;
+  width: auto;
+  max-width: 150px;
+  object-fit: contain;
   position: relative;
-  padding: 5 10 5 5;
+  padding: 5px 10px 5px 5px;
   margin-left: 10px;
   /* background: #ffffff; */
 }
